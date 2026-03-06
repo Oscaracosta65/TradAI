@@ -2524,7 +2524,7 @@ function describeMode(modeKey) {
     if (typeof applyPreset === 'function') { applyPreset(profile); }
   };
 
-      /* PATCH: Disabled legacy SKAI preset system(duplicate listeners / conflicting behavior).
+      /* PATCH: Disabled legacy SKAI preset system (duplicate listeners / conflicting behavior).
          The active system is the newer:
          // ---- SKAI Mode Presets (Option B – game-aware) ----
          above this block.
@@ -4204,7 +4204,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "| epochs=" + _ep, "batchSize=" + _bs, "dropout=" + _dr, "lr=" + _lr
       );
       setCell(combo.profile, combo.strategy,
-        "Training&#8230; (" + _ep + " ep, " + combo.profile + "/" + combo.strategy + ")", "running");
+        "Training... (" + _ep + " ep, " + combo.profile + "/" + combo.strategy + ")", "running");
     } catch (_) {}
 
     var finished = false;
@@ -4252,7 +4252,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     window.addEventListener("skai:ml:start", _onMlStart, false);
 
-    timeout = setTimeout(finish, 300000);
+    timeout = setTimeout(finish, 300000); /* 5-minute max wait per combo run */
 
     var runBtn = qs("startPrediction") || qs("runPrediction");
     if (!runBtn) {
@@ -4297,7 +4297,7 @@ document.addEventListener('DOMContentLoaded', function () {
       updateProgress();
       var viewHtml = "<span style='color:#16a34a;font-weight:600;'>Done</span> <a href='#' style='font-size:0.8rem;margin-left:4px;' data-batch-view='" + idx + "'>View</a>";
       setCell(combo.profile, combo.strategy, viewHtml, "done");
-      setTimeout(runNext, 1800);
+      setTimeout(runNext, 1800); /* 1.8-second cooldown between combo runs */
     });
   }
 
@@ -4374,7 +4374,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setTimeout(function () {
       saveAllSequential(rest, doneCallback);
-    }, 2500);
+    }, 2500); /* 2.5-second delay between sequential saves */
   }
 
   function wireButtons() {
