@@ -1041,8 +1041,8 @@ button.button-reset:hover{
   ?>
   [[h1]]AI-Powered Lottery Prediction Analysis for <?php echo htmlspecialchars($headingText, ENT_QUOTES, 'UTF-8'); ?>[[/h1]]
 [[p]]
-  Unlock a clear, data-driven prediction powered by SKAI — our transparent AI engine. 
-  Review how the model performed on past draws, see your numbers ranked by probability, 
+  Unlock a clear, data-driven prediction powered by the LottoExpert AI Engine — our original, proprietary prediction system built and maintained by LottoExpert.net.
+  Review how the model performed on past draws, see your numbers ranked by probability,
   and decide how to play with more clarity and control.
 [[/p]]
    
@@ -1811,7 +1811,7 @@ document.addEventListener('DOMContentLoaded', function () {
       Step 1 – Choose your coverage
     [[/span]]
     [[span style="padding:4px 10px; border-radius:999px; background:#1C66FF; color:#ffffff; font-weight:600;"]]
-      Step 2 – Run SKAI AI analysis
+      Step 2 – Run AI Analysis
     [[/span]]
     [[span style="padding:4px 10px; border-radius:999px; background:#EFEFF5; color:#0A1A33; border:1px solid #d0d5e5;"]]
       Step 3 – Structure tickets with wheeling
@@ -1889,11 +1889,11 @@ document.addEventListener('DOMContentLoaded', function () {
 [[section class="tile mdc-card mdc-elevation--z1" role="region" aria-labelledby="ai-prediction-title" style="padding:24px; margin-top:24px;"]]
   
   [[h2 id="ai-prediction-title" class="mdc-typography--headline5" style="margin-bottom:4px; color:var(--primary-blue); text-align:center;"]]
-    Step 2 – How SKAI Thinks About the Numbers
+    Step 2 – How the LottoExpert AI Engine Analyzes the Numbers
   [[/h2]]
 
   [[p class="mdc-typography--body1" style="margin-bottom:20px; line-height:1.6; text-align:center; max-width:640px; margin-left:auto; margin-right:auto;"]]
-    This section shows, in plain language, how SKAI analyzes past draws and turns them into probability-based recommendations. No “magic,” no hype – just measured, transparent machine-learning.
+    This section shows, in plain language, how the LottoExpert AI Engine — our original prediction system, developed by LottoExpert.net — analyzes past draws and turns them into probability-based recommendations. No “magic,” no hype – just measured, transparent machine-learning.
   [[/p]]
 
   [[div class="step" style="margin-bottom:20px;"]]
@@ -1901,7 +1901,7 @@ document.addEventListener('DOMContentLoaded', function () {
       1. Gathering Clean, Reliable Data
     [[/h3]]
     [[p class="mdc-typography--body1" style="line-height:1.6;"]]
-      SKAI starts with a verified history of past draws from our secure database. Each record includes:[[br/]]
+      The LottoExpert AI Engine starts with a verified history of past draws from our secure database. Each record includes:[[br/]]
       [[strong]]Winning numbers:[[​/strong]] the actual numbers drawn in each game.[[br/]]
       [[strong]]Draw dates:[[​/strong]] when each drawing took place.[[br/]]
       [[strong]]Jackpot amounts:[[​/strong]] prize size when available.[[br/]]
@@ -1919,7 +1919,7 @@ document.addEventListener('DOMContentLoaded', function () {
       [[strong]]Normalization:[[​/strong]] values are scaled so different ranges are comparable.[[br/]]
       [[strong]]Vector encoding:[[​/strong]] each draw becomes a consistent numeric “snapshot.”[[br/]]
       [[strong]]Outlier checks:[[​/strong]] unusual records are reviewed and, if needed, excluded.[[br/]]
-      [[strong]]Time-based features:[[​/strong]] SKAI derives patterns like gaps between repeats and rolling averages over recent draws.
+      [[strong]]Time-based features:[[​/strong]] our engine derives patterns like gaps between repeats and rolling averages over recent draws.
     [[/p]]
   [[/div]]
 
@@ -1928,7 +1928,7 @@ document.addEventListener('DOMContentLoaded', function () {
       3. Training the Neural Network
     [[/h3]]
     [[p class="mdc-typography--body1" style="line-height:1.6;"]]
-      SKAI uses a deep neural network, tuned through a few key settings:
+      The LottoExpert AI Engine uses a deep neural network, tuned through a few key settings:
     [[/p]]
     [[dl style="margin-left:16px; line-height:1.6;"]]
       [[dt]][[strong]]Epochs:[[​/strong]][[/dt]]
@@ -1959,7 +1959,7 @@ document.addEventListener('DOMContentLoaded', function () {
       4. Turning Patterns into Probabilities
     [[/h3]]
     [[p class="mdc-typography--body1" style="line-height:1.6;"]]
-      After training, SKAI assigns a probability score to every possible number. From there, it:[[br/]]
+      After training, the LottoExpert AI Engine assigns a probability score to every possible number. From there, it:[[br/]]
       [[strong]]Ranks:[[​/strong]] orders all numbers from most to least likely, based on the learned patterns.[[br/]]
       [[strong]]Selects:[[​/strong]] chooses the top candidates (for example, 5 main numbers plus any required bonus balls) for your analysis view.
     [[/p]]
@@ -1981,7 +1981,7 @@ document.addEventListener('DOMContentLoaded', function () {
       6. Realistic, Responsible Use
     [[/h3]]
     [[p class="mdc-typography--body1" style="line-height:1.6;"]]
-      SKAI narrows the field compared with picking numbers at random, but it cannot remove luck from the equation. Treat these insights as structured guidance, not a guarantee. Set a budget, stick to it, and play for enjoyment first.
+      The LottoExpert AI Engine narrows the field compared with picking numbers at random, but it cannot remove luck from the equation. Treat these insights as structured guidance, not a guarantee. Set a budget, stick to it, and play for enjoyment first.
     [[/p]]
   [[/div]]
 
@@ -1999,7 +1999,7 @@ document.addEventListener('DOMContentLoaded', function () {
     [[/h3]]
 
     [[p]]
-      Wheeling takes a set of smart numbers – for example, the [[strong]]20[[/strong]] numbers SKAI highlights – and spreads them across multiple tickets in an organized way. Instead of relying on a single line, you cover more combinations from the same pool.
+      Wheeling takes a set of smart numbers – for example, the [[strong]]20[[/strong]] numbers our AI engine highlights – and spreads them across multiple tickets in an organized way. Instead of relying on a single line, you cover more combinations from the same pool.
     [[/p]]
 
     [[table style="width:100%; border-collapse:collapse; text-align:center; font-size:14px; margin-top:10px;"]]
@@ -2038,7 +2038,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   [[div style="margin-top:15px; background-color:#eafaf1; padding:10px; border-radius:6px; border-left:4px solid #2a9d8f; font-size:0.9rem;"]]
     [[strong style="color:#264653;"]]Practical tip:[[br]][[/strong]]
-    Let SKAI narrow the field to your best numbers, then apply a reduced wheel that fits your budget. This keeps your play structured, not scattered.
+    Let the LottoExpert AI Engine narrow the field to your best numbers, then apply a reduced wheel that fits your budget. This keeps your play structured, not scattered.
   [[/div]]
 
   [[div style="margin-top:10px; background-color:#e9f1fa; padding:10px; border-radius:6px; border-left:4px solid #2b7ae4; font-size:0.9rem;"]]
@@ -2048,7 +2048,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   [[p style="margin-top:15px; font-style:italic; color:#555; font-size:0.9rem;"]]
     [[strong]]Important:[[br]][[/strong]]
-    Lotteries always involve risk. SKAI and wheeling strategies are designed to help you play more thoughtfully, not to promise outcomes. Set clear limits, play within them, and treat any win as a positive surprise – not an expectation.
+    Lotteries always involve risk. The LottoExpert AI Engine and wheeling strategies are designed to help you play more thoughtfully, not to promise outcomes. Set clear limits, play within them, and treat any win as a positive surprise – not an expectation.
   [[/p]]
 
 
@@ -2124,7 +2124,7 @@ function renderBacktestResults(results) {
 
     tableHTML += `
       [[div style="margin-top:12px; padding:10px; border:1px solid #ccc; border-radius:6px; text-align:left;"]]
-        [[div style="font-weight:700; margin-bottom:6px;"]]SKAI Backtest Proper-Scoring Summary[[/div]]
+        [[div style="font-weight:700; margin-bottom:6px;"]]LottoExpert AI Backtest Summary[[/div]]
         [[div]]Steps: ${s.steps}[[/div]]
         [[div]]Main: Avg Expected Mass (in picks): ${Number(s.avgExpectedMassMain).toFixed(4)}[[/div]]
         [[div]]Main: Avg Brier (lower better): ${Number(s.avgBrierMain).toFixed(6)}[[/div]]
