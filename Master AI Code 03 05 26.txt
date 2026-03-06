@@ -1062,6 +1062,165 @@ button.button-reset:hover{
   Reset
 [[/button]]
       [[/div]]
+
+<!-- SKAI: Run 9-Combo Default Batch button -->
+<div style="margin:10px 0 4px 0;">
+  <button type="button" id="skai-batch-launch" class="btn-outline"
+    style="display:inline-block;font-size:0.9rem;padding:7px 14px;">
+    Run 9-Combo Default Batch
+  </button>
+  <div style="font-size:0.8rem;color:#6b7280;margin-top:3px;">
+    Runs all nine default combinations. This can take a long time.
+  </div>
+</div>
+
+<!-- SKAI: Batch confirmation modal -->
+<div id="skai-batch-modal"
+  style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9990;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:14px;padding:28px 24px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.22);margin:auto;margin-top:10vh;">
+    <h3 style="margin:0 0 12px 0;font-size:1.1rem;">Run all 9 combinations?</h3>
+    <p style="font-size:0.9rem;line-height:1.55;color:#374151;margin:0 0 10px 0;">
+      SKAI will run <strong>9 separate projections</strong> back to back.
+      Each one covers a different combination of risk profile and strategy.
+    </p>
+    <ul style="font-size:0.88rem;color:#374151;margin:0 0 10px 0;padding-left:18px;line-height:1.7;">
+      <li><strong>Risk profiles:</strong> Balanced, Explorative, Conservative</li>
+      <li><strong>Strategies:</strong> AI-Forward, Balanced Mix, Skip Pattern Boost</li>
+    </ul>
+    <p style="font-size:0.88rem;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin:0 0 10px 0;">
+      This may take several minutes. You can stop the batch at any time using the Stop button.
+    </p>
+    <p style="font-size:0.88rem;color:#1e3a5f;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin:0 0 16px 0;">
+      <strong>About saving:</strong> Do not click Save while the batch is running.
+      A <strong>Save All 9</strong> button will appear automatically once every run is complete.
+      You can also save individual runs or stop early and save whatever has finished.
+    </p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button type="button" id="skai-batch-confirm" class="btn" style="flex:1;min-width:120px;">
+        Start Batch
+      </button>
+      <button type="button" id="skai-batch-cancel" class="btn-outline" style="flex:1;min-width:100px;">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SKAI: Batch progress panel -->
+<div id="skai-batch-panel" style="display:none;margin:14px 0 0 0;border:1px solid #e5e7eb;border-radius:12px;padding:16px;background:#f9fafb;">
+  <div style="font-weight:700;font-size:0.98rem;margin-bottom:8px;">Batch Progress</div>
+  <div id="skai-batch-progress-text" style="font-size:0.9rem;color:#374151;margin-bottom:4px;">
+    Completed 0 of 9
+  </div>
+  <div id="skai-batch-current-label" style="font-size:0.85rem;color:#6b7280;margin-bottom:10px;">
+    Ready
+  </div>
+  <div id="skai-batch-save-note" style="font-size:0.83rem;color:#1e3a5f;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin-bottom:12px;">
+    <strong>What to do while it runs:</strong> Just wait. You do not need to click Save during the batch.
+    When all runs are finished, a <strong>Save All 9</strong> button will appear right below this grid.
+    You can also stop early and save whichever runs have already completed.
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+    <button type="button" id="skai-batch-stop" class="btn-outline"
+      style="font-size:0.85rem;padding:5px 12px;color:#dc2626;border-color:#dc2626;">
+      Stop Batch
+    </button>
+    <button type="button" id="skai-batch-clear" class="btn-outline"
+      style="font-size:0.85rem;padding:5px 12px;">
+      Clear Batch
+    </button>
+  </div>
+
+  <!-- 3x3 results grid -->
+  <div style="overflow-x:auto;">
+    <table id="skai-batch-grid" style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+      <thead>
+        <tr>
+          <th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:left;">Profile / Strategy</th>
+          <th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;">AI-Forward</th>
+          <th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;">Balanced Mix</th>
+          <th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;">Skip Pattern Boost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;">Balanced</td>
+          <td id="skai-cell-balanced-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="ai">Pending</td>
+          <td id="skai-cell-balanced-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="hybrid">Pending</td>
+          <td id="skai-cell-balanced-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="skip">Pending</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;">Explorative</td>
+          <td id="skai-cell-explorative-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="ai">Pending</td>
+          <td id="skai-cell-explorative-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="hybrid">Pending</td>
+          <td id="skai-cell-explorative-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="skip">Pending</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;">Conservative</td>
+          <td id="skai-cell-conservative-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="ai">Pending</td>
+          <td id="skai-cell-conservative-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="hybrid">Pending</td>
+          <td id="skai-cell-conservative-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="skip">Pending</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Batch result detail area -->
+  <div id="skai-batch-detail" style="display:none;margin-top:14px;padding:12px;border:1px solid #d1fae5;border-radius:8px;background:#f0fdf4;">
+    <div style="font-weight:600;margin-bottom:6px;" id="skai-batch-detail-title">Result</div>
+    <div id="skai-batch-detail-body" style="font-size:0.85rem;white-space:pre-wrap;word-break:break-word;max-height:220px;overflow-y:auto;"></div>
+    <button type="button" id="skai-batch-detail-close" class="btn-outline"
+      style="margin-top:8px;font-size:0.82rem;padding:4px 10px;">Close</button>
+  </div>
+
+  <!-- Save all / Save selected (post-completion) -->
+  <div id="skai-batch-save-row" style="display:none;margin-top:12px;gap:8px;flex-wrap:wrap;">
+    <div style="width:100%;font-size:0.85rem;color:#065f46;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px 12px;margin-bottom:8px;">
+      <strong>All runs are done.</strong> Click <strong>Save All 9</strong> to save every result to your dashboard in one go,
+      or click <strong>Save Selected</strong> to pick only the ones you want.
+      You stay on this page the whole time - nothing disappears.
+    </div>
+    <button type="button" id="skai-batch-save-all" class="btn"
+      style="font-size:0.85rem;padding:6px 14px;">
+      Save All 9
+    </button>
+    <button type="button" id="skai-batch-save-selected" class="btn-outline"
+      style="font-size:0.85rem;padding:6px 14px;">
+      Save Selected
+    </button>
+  </div>
+</div>
+
+<!-- SKAI: How this works - help panel (always visible) -->
+<details id="skai-how-it-works"
+  style="margin:14px 0 0 0;border:1px solid #e5e7eb;border-radius:12px;padding:0;background:#fff;">
+  <summary style="padding:12px 16px;font-weight:700;font-size:0.95rem;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;">
+    How this works
+    <span style="font-size:0.8rem;font-weight:400;color:#6b7280;">Click to expand</span>
+  </summary>
+  <div style="padding:4px 16px 16px 16px;font-size:0.88rem;line-height:1.65;color:#374151;">
+    <p><strong>Run 9-Combo Default Batch</strong> asks SKAI to do nine separate analysis runs all at once.
+    Think of it like asking nine different experts to look at the same lottery and each one uses a slightly different style.
+    Some are bold and exploratory. Some are careful and conservative. Some lean on patterns; others lean on the AI engine.
+    Together they give you a full picture.</p>
+    <p><strong>Why does it take long?</strong> Each run is a complete analysis. SKAI has to look through all the historical draw data,
+    run its AI model, and score every number. Nine of those in a row takes some patience. You can stop at any time and keep the results you already have.</p>
+    <p><strong>What does the grid mean?</strong> The 3 rows are the three risk styles (Balanced, Explorative, Conservative).
+    The 3 columns are the three strategy modes (AI-Forward, Balanced Mix, Skip Pattern Boost).
+    Each cell shows whether that combination is Pending, Running, or Done.
+    When a run finishes, a View link appears so you can look at the picks it produced.</p>
+    <p><strong>What does Save All 9 do?</strong> It saves each completed run to your dashboard one at a time, automatically.
+    You will see a small green confirmation for each one. Nothing disappears. You stay on this page the whole time.</p>
+    <p><strong>Should I click Save while the batch is still running?</strong> No. Do not click Save during the batch.
+    Just let it run. When the last combination finishes, a green <strong>Save All 9</strong> button appears automatically
+    right below the grid. That is your signal that everything is ready to save.</p>
+    <p><strong>What if I stop the batch early?</strong> No problem. Whatever runs already finished are kept.
+    The Save All 9 button appears as soon as you stop, so you can save whichever results are already done.</p>
+    <p><strong>What happens after you click Save?</strong> Nothing scary. You stay right here. A small green message appears near the save button
+    so you know it worked. Your picks and all your settings remain visible exactly as they were.</p>
+  </div>
+</details>
+
     <?php else: ?>
       [[div style="text-align: center; margin-top: 20px;"]]
         [[button type="button" style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="showSignUpPopup()"]]
@@ -2352,9 +2511,20 @@ function describeMode(modeKey) {
   }
   // ---- END SKAI Mode Presets ----
 
+  // --- 9-Combo Batch: expose applyPreset and define skaiApplyCombo ---
+  window.skaiApplyPreset = applyPreset;
+  window.skaiApplyCombo = function (profile, strategy) {
+    // Map SKAI strategy → Master data-skai-mode
+    var stratMap = { ai: 'ai-forward', hybrid: 'mixed', skip: 'skip-dominant' };
+    var stratMode = stratMap[strategy] || strategy;
+    // Step 1: click strategy mode button (updates aria-pressed for getSelectedSkaiMode())
+    var stratBtn = document.querySelector('[data-skai-mode="' + stratMode + '"]');
+    if (stratBtn && typeof stratBtn.click === 'function') { stratBtn.click(); }
+    // Step 2: re-apply profile training params without touching aria-pressed
+    if (typeof applyPreset === 'function') { applyPreset(profile); }
+  };
 
-
-      /* PATCH: Disabled legacy SKAI preset system (duplicate listeners / conflicting behavior).
+      /* PATCH: Disabled legacy SKAI preset system(duplicate listeners / conflicting behavior).
          The active system is the newer:
          // ---- SKAI Mode Presets (Option B – game-aware) ----
          above this block.
@@ -3216,6 +3386,7 @@ setTimeout(() => {
         }, funMessageInterval);
         countdownDiv.innerHTML = "Estimated time: Calculating...";
         try {
+          try { window.dispatchEvent(new Event('skai:ml:start')); } catch (_) {}
           await tf.setBackend('cpu');
           console.log('TensorFlow.js version:', tf.version.tfjs);
           console.log('Backend:', tf.getBackend());
@@ -3436,6 +3607,12 @@ setTimeout(() => {
             };
           });
           mainNumbersProbabilities.sort((a, b) => b.probability - a.probability);
+          // Populate batch-runner capture globals
+          try {
+            window.skaiSaveMainOrdered = mainNumbersProbabilities.slice(0, 20).map(function (item) { return item.number; });
+            window.skaiSaveExtraOrdered = [];
+          } catch (_) {}
+          try { window.dispatchEvent(new Event('skai:score:done')); } catch (_) {}
           // Final selection: exploit + controlled exploration (Explorative/Mixed), strict top-k otherwise
           const pickedNumbers = skaiSelectPicksFromMass(finalProbNorm, pickSize, modeKey);
 
@@ -3581,6 +3758,13 @@ document.getElementById('saveHiddenLayers').value        = HIDDEN_LAYERS;
           // Populate the hidden form fields with the entire list of predicted values.
           document.getElementById('saveMainNumbers').value = mainPredictionNumbers;
           document.getElementById('saveExtraBallNumbers').value = extraPredictionNumbers;
+          // Persist extra ball picks for batch-runner capture
+          try {
+            if (hasExtraBall && extraPredictionNumbers) {
+              var _extraArr = extraPredictionNumbers.split(',').map(function (n) { return parseInt(n, 10); }).filter(function (n) { return !isNaN(n); });
+              window.skaiSaveExtraOrdered = _extraArr;
+            }
+          } catch (_) {}
       
           // BEGIN BACKTESTING STEP (if user enabled it)
           if (enableBacktestCheckbox.checked) {
@@ -3628,6 +3812,7 @@ const backtestResults = await runBacktesting(sortedDrawsAsc, settings);
             numberBreakdownDiv.style.display = 'block';
           }, 1000);
           clearInterval(funMessageTimer);
+          try { window.dispatchEvent(new Event('skai:done')); } catch (_) {}
         } catch (error) {
           console.error('Error during model training or Analysis:', error);
           loadingDiv.innerText = 'An error occurred during model training or Analysis: ' + error.message;
@@ -3706,6 +3891,651 @@ document.addEventListener('DOMContentLoaded', function () {
     options: commonOptions('Tickets')
   });
 });
+[[/script]]
+
+<!-- SKAI Feature B: Save interception - prevents redirect, shows toast + inline status -->
+[[script]]
+(function () {
+  "use strict";
+
+  function showSaveToast(msg) {
+    try {
+      var old = document.getElementById("skai-save-toast");
+      if (old && old.parentNode) { old.parentNode.removeChild(old); }
+      var t = document.createElement("div");
+      t.id = "skai-save-toast";
+      t.setAttribute("role", "status");
+      t.setAttribute("aria-live", "polite");
+      t.style.cssText = "position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#065f46;color:#fff;padding:10px 22px;border-radius:999px;font-size:0.92rem;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,0.18);z-index:99999;pointer-events:none;opacity:1;transition:opacity 0.4s;";
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(function () {
+        try { t.style.opacity = "0"; } catch (_) {}
+        setTimeout(function () { try { if (t.parentNode) { t.parentNode.removeChild(t); } } catch (_) {} }, 450);
+      }, 3200);
+    } catch (_) {}
+  }
+
+  function showInlineSaveStatus(form) {
+    try {
+      var existing = form.querySelector("[data-skai-inline-saved]");
+      if (existing && existing.parentNode) { existing.parentNode.removeChild(existing); }
+      var now = new Date();
+      var hh = ("0" + now.getHours()).slice(-2);
+      var mm = ("0" + now.getMinutes()).slice(-2);
+      var ss = ("0" + now.getSeconds()).slice(-2);
+      var span = document.createElement("span");
+      span.setAttribute("data-skai-inline-saved", "1");
+      span.style.cssText = "display:inline-block;margin-left:10px;color:#065f46;font-size:0.85rem;font-weight:600;vertical-align:middle;";
+      span.textContent = "Saved at " + hh + ":" + mm + ":" + ss;
+      var actions = form.querySelector(".skai-save-actions");
+      if (actions) {
+        actions.appendChild(span);
+      } else {
+        form.appendChild(span);
+      }
+    } catch (_) {}
+  }
+
+  function interceptSaveForm(form) {
+    if (!form || form.__skaiSaveIntercepted) { return; }
+    form.__skaiSaveIntercepted = true;
+
+    form.addEventListener("submit", function (ev) {
+      try { ev.preventDefault(); } catch (_) {}
+      try { ev.stopPropagation(); } catch (_) {}
+
+      var submitBtn = form.querySelector("[type=submit]");
+      if (submitBtn) { submitBtn.disabled = true; }
+
+      var hint = form.querySelector("[id$=save-hint], [id$=-save-hint]");
+      if (hint) { hint.textContent = "Saving..."; }
+
+      var data = [];
+      var inputs = form.elements;
+      for (var i = 0; i < inputs.length; i++) {
+        var el = inputs[i];
+        if (!el.name) { continue; }
+        var tag = el.tagName.toUpperCase();
+        if (tag === "INPUT") {
+          if (el.type === "checkbox" || el.type === "radio") {
+            if (!el.checked) { continue; }
+          }
+          data.push(encodeURIComponent(el.name) + "=" + encodeURIComponent(el.value || ""));
+        } else if (tag === "TEXTAREA" || tag === "SELECT") {
+          data.push(encodeURIComponent(el.name) + "=" + encodeURIComponent(el.value || ""));
+        }
+      }
+      var body = data.join("&");
+      var url = form.getAttribute("action") || (window.location.href.split("#")[0]);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) { return; }
+        if (submitBtn) { submitBtn.disabled = false; }
+        var ok = (xhr.status >= 200 && xhr.status < 400);
+        var resp = ok ? (xhr.responseText || "") : "";
+        var looksOk = ok && (
+          resp.indexOf("saved") >= 0 ||
+          resp.indexOf("Saved") >= 0 ||
+          resp.indexOf("dashboard") >= 0 ||
+          resp.indexOf("success") >= 0 ||
+          resp.length > 200
+        );
+        if (looksOk) {
+          showSaveToast("Saved");
+          showInlineSaveStatus(form);
+          if (hint) { hint.textContent = "Saved successfully."; }
+        } else {
+          showSaveToast("Save request sent. If you do not see it later, try saving again.");
+          if (hint) { hint.textContent = "Save request sent. If you do not see it later, try saving again."; }
+        }
+      };
+      try { xhr.send(body); } catch (e) {
+        if (submitBtn) { submitBtn.disabled = false; }
+        showSaveToast("Save request sent. If you do not see it later, try saving again.");
+      }
+      return false;
+    }, true);
+  }
+
+  function wireSaveForms() {
+    var forms = document.querySelectorAll("form");
+    for (var i = 0; i < forms.length; i++) {
+      if (forms[i].querySelector("input[name='save_set']")) {
+        interceptSaveForm(forms[i]);
+      }
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", wireSaveForms, {once: true});
+  } else {
+    wireSaveForms();
+  }
+
+  window.skaiInterceptSaveForm = interceptSaveForm;
+  window.skaiShowSaveToast = showSaveToast;
+})();
+[[/script]]
+
+<!-- SKAI Feature A: Run 9-Combo Default Batch -->
+[[script]]
+(function () {
+  "use strict";
+
+  var BATCH_COMBOS = [
+    { profile: "balanced",     strategy: "ai",    label: "Balanced x AI-Forward" },
+    { profile: "balanced",     strategy: "hybrid", label: "Balanced x Balanced Mix" },
+    { profile: "balanced",     strategy: "skip",   label: "Balanced x Skip Pattern Boost" },
+    { profile: "explorative",  strategy: "ai",    label: "Explorative x AI-Forward" },
+    { profile: "explorative",  strategy: "hybrid", label: "Explorative x Balanced Mix" },
+    { profile: "explorative",  strategy: "skip",   label: "Explorative x Skip Pattern Boost" },
+    { profile: "conservative", strategy: "ai",    label: "Conservative x AI-Forward" },
+    { profile: "conservative", strategy: "hybrid", label: "Conservative x Balanced Mix" },
+    { profile: "conservative", strategy: "skip",   label: "Conservative x Skip Pattern Boost" }
+  ];
+
+  var STORAGE_KEY = "skai_batch_results_v1";
+  var batchResults = [];
+  var batchRunning = false;
+  var batchStopped = false;
+  var batchIndex = 0;
+  var batchDoneCount = 0;
+
+  function persistResults() {
+    try {
+      var slim = [];
+      for (var i = 0; i < batchResults.length; i++) {
+        var r = batchResults[i];
+        slim.push({ combo: r.combo, text: r.text || "", done: !!r.done, mainNumbers: r.mainNumbers || [], extraNumbers: r.extraNumbers || [] });
+      }
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
+    } catch (_) {}
+  }
+
+  function loadPersistedResults() {
+    try {
+      var raw = sessionStorage.getItem(STORAGE_KEY);
+      if (!raw) { return []; }
+      return JSON.parse(raw) || [];
+    } catch (_) { return []; }
+  }
+
+  function qs(id) { return document.getElementById(id); }
+
+  function setCell(profile, strategy, content, className) {
+    var cell = qs("skai-cell-" + profile + "-" + strategy);
+    if (!cell) { return; }
+    cell.innerHTML = content;
+    cell.style.background = className === "running" ? "#eff6ff" :
+                            className === "done"    ? "#f0fdf4" :
+                            className === "error"   ? "#fef2f2" : "";
+  }
+
+  function updateProgress() {
+    var pt = qs("skai-batch-progress-text");
+    if (pt) { pt.textContent = "Completed " + batchDoneCount + " of 9"; }
+  }
+
+  function setCurrentLabel(label) {
+    var cl = qs("skai-batch-current-label");
+    if (cl) { cl.textContent = label; }
+  }
+
+  function showPanel() {
+    var p = qs("skai-batch-panel");
+    if (p) { p.style.display = "block"; }
+  }
+
+  function hideModal() {
+    var m = qs("skai-batch-modal");
+    if (m) { m.style.display = "none"; }
+  }
+
+  function selectProfile(profile) {
+    try {
+      var btns = document.querySelectorAll("[data-profile]");
+      for (var i = 0; i < btns.length; i++) {
+        var b = btns[i];
+        var isTarget = (String(b.getAttribute("data-profile")).toLowerCase() === profile);
+        b.setAttribute("aria-pressed", isTarget ? "true" : "false");
+        if (isTarget) {
+          b.className = (b.className || "").replace(/\bis-active\b/g, "").trim() + " is-active";
+        } else {
+          b.className = (b.className || "").replace(/\bis-active\b/g, "").trim();
+        }
+      }
+      var inp = qs("skai-risk-profile") || qs("skai-ai-risk-profile");
+      if (inp) { inp.value = profile; }
+    } catch (_) {}
+  }
+
+  function selectStrategy(strategy) {
+    try {
+      var btns = document.querySelectorAll("[data-strategy]");
+      for (var i = 0; i < btns.length; i++) {
+        var b = btns[i];
+        var isTarget = (String(b.getAttribute("data-strategy")).toLowerCase() === strategy);
+        b.setAttribute("aria-pressed", isTarget ? "true" : "false");
+        if (isTarget) {
+          b.className = (b.className || "").replace(/\bis-active\b/g, "").trim() + " is-active";
+        } else {
+          b.className = (b.className || "").replace(/\bis-active\b/g, "").trim();
+        }
+      }
+      var inp = qs("skai-strategy") || qs("skai-ai-strategy");
+      if (inp) { inp.value = strategy; }
+    } catch (_) {}
+  }
+
+  function captureResult() {
+    try {
+      var containers = [
+        "prediction",
+        "numberBreakdown",
+        "aiMainPredictionContainer",
+        "aiExtraPredictionContainer",
+        "skai-ai-results",
+        "skai-results",
+        "skaiResultsContainer",
+        "skai-output"
+      ];
+      var html = "";
+      var text = "";
+      for (var i = 0; i < containers.length; i++) {
+        var el = qs(containers[i]);
+        if (el && el.innerHTML && el.innerHTML.trim().length > 20) {
+          html += el.outerHTML;
+          text += (el.textContent || el.innerText || "").trim().substring(0, 2000);
+        }
+      }
+      if (!html) {
+        var picks = document.querySelectorAll(".number-ball, .skai-number-ball, .skai-pick, [class*='ball'], [class*='pick-number']");
+        if (picks.length > 0) {
+          var tmp = document.createElement("div");
+          for (var j = 0; j < picks.length && j < 30; j++) {
+            tmp.appendChild(picks[j].cloneNode(true));
+          }
+          html = tmp.innerHTML;
+          text = tmp.textContent || "";
+        }
+      }
+      var mainNums  = (window.skaiSaveMainOrdered  && window.skaiSaveMainOrdered.length)
+        ? window.skaiSaveMainOrdered.slice()  : [];
+      var extraNums = (window.skaiSaveExtraOrdered && window.skaiSaveExtraOrdered.length)
+        ? window.skaiSaveExtraOrdered.slice() : [];
+      return {
+        html: html || "(no picks captured)",
+        text: text || "(no picks captured)",
+        mainNumbers:  mainNums,
+        extraNumbers: extraNums
+      };
+    } catch (_) {
+      return { html: "(capture error)", text: "(capture error)", mainNumbers: [], extraNumbers: [] };
+    }
+  }
+
+  function runCombo(combo, onDone) {
+    try {
+      if (typeof window.skaiApplyCombo === "function") {
+        window.skaiApplyCombo(combo.profile, combo.strategy);
+      } else {
+        selectProfile(combo.profile);
+        selectStrategy(combo.strategy);
+      }
+    } catch (_) {}
+
+    try {
+      var _gvLog = function (id, def) {
+        var el = document.getElementById(id) || document.getElementById(id + "_ui");
+        var v = (el && el.value != null) ? String(el.value).trim() : "";
+        return v !== "" ? v : def;
+      };
+      var _ep  = _gvLog("epochs",         _gvLog("skaiadv_epochs",   "?"));
+      var _bs  = _gvLog("batchSize",      _gvLog("skaiadv_batch",    "?"));
+      var _dr  = _gvLog("dropoutRate",    _gvLog("skaiadv_dropout",  "?"));
+      var _lr  = _gvLog("learningRate",   _gvLog("skaiadv_lr",       "?"));
+      console.log("[SKAI batch] Running combo:", combo.label,
+        "| profile=" + combo.profile + ", strategy=" + combo.strategy,
+        "| epochs=" + _ep, "batchSize=" + _bs, "dropout=" + _dr, "lr=" + _lr
+      );
+      setCell(combo.profile, combo.strategy,
+        "Training&#8230; (" + _ep + " ep, " + combo.profile + "/" + combo.strategy + ")", "running");
+    } catch (_) {}
+
+    var finished = false;
+    var timeout = null;
+    var _doneFired      = false;
+    var _scoreDoneFired = false;
+    var _onMlStart = null;
+
+    function finish() {
+      if (finished) { return; }
+      finished = true;
+      try { clearTimeout(timeout); } catch (_) {}
+      if (_onMlStart) {
+        try { window.removeEventListener("skai:ml:start", _onMlStart, false); } catch (_) {}
+        _onMlStart = null;
+      }
+      try { console.log("[SKAI batch] combo done: " + combo.label +
+        " | doneFired=" + _doneFired + " scoreDoneFired=" + _scoreDoneFired); } catch (_) {}
+      var res = captureResult();
+      onDone(res);
+    }
+
+    function checkAllDone() {
+      if (_doneFired && _scoreDoneFired) { finish(); }
+    }
+
+    function registerCompletionListeners() {
+      if (finished) { return; }
+      window.addEventListener("skai:done", function onSkaiDone() {
+        try { window.removeEventListener("skai:done", onSkaiDone, false); } catch (_) {}
+        _doneFired = true;
+        checkAllDone();
+      }, false);
+      window.addEventListener("skai:score:done", function onScoreDone() {
+        try { window.removeEventListener("skai:score:done", onScoreDone, false); } catch (_) {}
+        _scoreDoneFired = true;
+        checkAllDone();
+      }, false);
+    }
+
+    _onMlStart = function onMlStart() {
+      try { window.removeEventListener("skai:ml:start", _onMlStart, false); } catch (_) {}
+      _onMlStart = null;
+      registerCompletionListeners();
+    };
+    window.addEventListener("skai:ml:start", _onMlStart, false);
+
+    timeout = setTimeout(finish, 300000);
+
+    var runBtn = qs("startPrediction") || qs("runPrediction");
+    if (!runBtn) {
+      onDone({ html: "(run button not found)", text: "(run button not found)", mainNumbers: [], extraNumbers: [] });
+      return;
+    }
+    try {
+      window.__SKAI_RUNNING__ = false;
+    } catch (_) {}
+    try {
+      if (typeof runBtn.click === "function") { runBtn.click(); }
+      else {
+        var ev = document.createEvent("MouseEvents");
+        ev.initEvent("click", true, true);
+        runBtn.dispatchEvent(ev);
+      }
+    } catch (_) {
+      finish();
+    }
+  }
+
+  function runNext() {
+    if (batchStopped || batchIndex >= BATCH_COMBOS.length) {
+      onBatchEnd();
+      return;
+    }
+    var combo = BATCH_COMBOS[batchIndex];
+    setCell(combo.profile, combo.strategy, "Running...", "running");
+    setCurrentLabel(combo.label);
+    var idx = batchIndex;
+    batchIndex += 1;
+
+    runCombo(combo, function (res) {
+      if (batchStopped) {
+        onBatchEnd();
+        return;
+      }
+      batchResults[idx] = { combo: combo, html: res.html, text: res.text, done: true,
+                            mainNumbers: res.mainNumbers || [], extraNumbers: res.extraNumbers || [] };
+      persistResults();
+      batchDoneCount += 1;
+      updateProgress();
+      var viewHtml = "<span style='color:#16a34a;font-weight:600;'>Done</span> <a href='#' style='font-size:0.8rem;margin-left:4px;' data-batch-view='" + idx + "'>View</a>";
+      setCell(combo.profile, combo.strategy, viewHtml, "done");
+      setTimeout(runNext, 1800);
+    });
+  }
+
+  function onBatchEnd() {
+    batchRunning = false;
+    setCurrentLabel(batchStopped ? "Batch stopped." : "All runs complete.");
+    try { console.log("[SKAI batch] onBatchEnd: " + batchDoneCount + "/" + BATCH_COMBOS.length + " combos done, stopped=" + batchStopped); } catch (_) {}
+    var saveRow = qs("skai-batch-save-row");
+    if (saveRow && batchDoneCount > 0 && (batchStopped || batchDoneCount >= BATCH_COMBOS.length)) {
+      saveRow.style.display = "flex";
+    }
+    var stopBtn = qs("skai-batch-stop");
+    if (stopBtn) { stopBtn.disabled = true; }
+  }
+
+  function resetGrid() {
+    var cells = document.querySelectorAll("#skai-batch-grid td[data-profile]");
+    for (var i = 0; i < cells.length; i++) {
+      cells[i].innerHTML = "Pending";
+      cells[i].style.background = "";
+    }
+  }
+
+  function openDetail(idx) {
+    var r = batchResults[idx];
+    if (!r) { return; }
+    var detail = qs("skai-batch-detail");
+    var title = qs("skai-batch-detail-title");
+    var body = qs("skai-batch-detail-body");
+    if (!detail || !body) { return; }
+    if (title) { title.textContent = r.combo.label; }
+    body.textContent = r.text || "(no result text)";
+    detail.style.display = "block";
+    try { detail.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
+  }
+
+  function saveAllSequential(indices, doneCallback) {
+    if (!indices || indices.length === 0) {
+      if (doneCallback) { doneCallback(); }
+      return;
+    }
+    var idx = indices[0];
+    var rest = indices.slice(1);
+    var r = batchResults[idx];
+    if (!r || !r.done) {
+      saveAllSequential(rest, doneCallback);
+      return;
+    }
+
+    try { selectProfile(r.combo.profile); } catch (_) {}
+    try { selectStrategy(r.combo.strategy); } catch (_) {}
+
+    var form = qs("savePredictionForm");
+    if (!form) {
+      saveAllSequential(rest, doneCallback);
+      return;
+    }
+
+    try {
+      if (r.mainNumbers && r.mainNumbers.length) {
+        window.skaiSaveMainOrdered  = r.mainNumbers.slice();
+        window.skaiSaveExtraOrdered = (r.extraNumbers && r.extraNumbers.length)
+          ? r.extraNumbers.slice() : [];
+        var mainField = document.getElementById("saveMainNumbers");
+        if (mainField) { mainField.value = r.mainNumbers.join(","); }
+        var extraField = document.getElementById("saveExtraBallNumbers");
+        if (extraField) { extraField.value = (r.extraNumbers || []).join(","); }
+      }
+    } catch (_) {}
+
+    var ev = document.createEvent("Event");
+    ev.initEvent("submit", true, true);
+    form.dispatchEvent(ev);
+
+    setTimeout(function () {
+      saveAllSequential(rest, doneCallback);
+    }, 2500);
+  }
+
+  function wireButtons() {
+    var launchBtn = qs("skai-batch-launch");
+    var modal = qs("skai-batch-modal");
+    var confirmBtn = qs("skai-batch-confirm");
+    var cancelBtn = qs("skai-batch-cancel");
+    var stopBtn = qs("skai-batch-stop");
+    var clearBtn = qs("skai-batch-clear");
+    var detailClose = qs("skai-batch-detail-close");
+    var saveAllBtn = qs("skai-batch-save-all");
+    var saveSelBtn = qs("skai-batch-save-selected");
+
+    if (launchBtn) {
+      launchBtn.addEventListener("click", function () {
+        if (modal) { modal.style.display = "flex"; }
+      }, false);
+    }
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", function () {
+        if (modal) { modal.style.display = "none"; }
+      }, false);
+    }
+
+    if (modal) {
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) { modal.style.display = "none"; }
+      }, false);
+    }
+
+    if (confirmBtn) {
+      confirmBtn.addEventListener("click", function () {
+        hideModal();
+        if (batchRunning) { return; }
+        batchRunning = true;
+        batchStopped = false;
+        batchIndex = 0;
+        batchDoneCount = 0;
+        batchResults = [];
+        var saveRow = qs("skai-batch-save-row");
+        if (saveRow) { saveRow.style.display = "none"; }
+        var stopBtn2 = qs("skai-batch-stop");
+        if (stopBtn2) { stopBtn2.disabled = false; }
+        var detailEl = qs("skai-batch-detail");
+        if (detailEl) { detailEl.style.display = "none"; }
+        resetGrid();
+        showPanel();
+        updateProgress();
+        setCurrentLabel("Starting...");
+        setTimeout(runNext, 400);
+      }, false);
+    }
+
+    if (stopBtn) {
+      stopBtn.addEventListener("click", function () {
+        batchStopped = true;
+        batchRunning = false;
+        setCurrentLabel("Stopping...");
+      }, false);
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        batchStopped = true;
+        batchRunning = false;
+        batchResults = [];
+        batchDoneCount = 0;
+        batchIndex = 0;
+        try { sessionStorage.removeItem(STORAGE_KEY); } catch (_) {}
+        resetGrid();
+        updateProgress();
+        setCurrentLabel("Ready");
+        var detail2 = qs("skai-batch-detail");
+        if (detail2) { detail2.style.display = "none"; }
+        var saveRow2 = qs("skai-batch-save-row");
+        if (saveRow2) { saveRow2.style.display = "none"; }
+      }, false);
+    }
+
+    if (detailClose) {
+      detailClose.addEventListener("click", function () {
+        var d = qs("skai-batch-detail");
+        if (d) { d.style.display = "none"; }
+      }, false);
+    }
+
+    var grid = qs("skai-batch-grid");
+    if (grid) {
+      grid.addEventListener("click", function (e) {
+        var t = e.target;
+        if (t && t.getAttribute("data-batch-view") !== null) {
+          try { e.preventDefault(); } catch (_) {}
+          openDetail(parseInt(t.getAttribute("data-batch-view"), 10));
+        }
+      }, false);
+    }
+
+    if (saveAllBtn) {
+      saveAllBtn.addEventListener("click", function () {
+        if (!window.confirm("This will save each completed run one by one to your dashboard. Continue?")) { return; }
+        var indices = [];
+        for (var i = 0; i < batchResults.length; i++) {
+          if (batchResults[i] && batchResults[i].done) { indices.push(i); }
+        }
+        if (indices.length === 0) {
+          alert("No completed runs to save.");
+          return;
+        }
+        saveAllSequential(indices, function () {
+          if (window.skaiShowSaveToast) { window.skaiShowSaveToast("All saved."); }
+        });
+      }, false);
+    }
+
+    if (saveSelBtn) {
+      saveSelBtn.addEventListener("click", function () {
+        var available = [];
+        for (var i = 0; i < batchResults.length; i++) {
+          if (batchResults[i] && batchResults[i].done) { available.push(i); }
+        }
+        if (available.length === 0) {
+          alert("No completed runs to save.");
+          return;
+        }
+        var labels = [];
+        for (var j = 0; j < available.length; j++) {
+          labels.push((j + 1) + ". " + batchResults[available[j]].combo.label);
+        }
+        var input = window.prompt(
+          "Enter the numbers (comma-separated) of the runs you want to save:\n\n" + labels.join("\n"),
+          "1"
+        );
+        if (!input) { return; }
+        var chosen = [];
+        var parts = input.split(",");
+        for (var k = 0; k < parts.length; k++) {
+          var n = parseInt(parts[k].trim(), 10);
+          if (!isNaN(n) && n >= 1 && n <= available.length) {
+            chosen.push(available[n - 1]);
+          }
+        }
+        if (chosen.length === 0) { alert("No valid selections."); return; }
+        saveAllSequential(chosen, function () {
+          if (window.skaiShowSaveToast) { window.skaiShowSaveToast("Selected runs saved."); }
+        });
+      }, false);
+    }
+  }
+
+  function init() {
+    wireButtons();
+    try { sessionStorage.removeItem(STORAGE_KEY); } catch (_) {}
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, {once: true});
+  } else {
+    init();
+  }
+})();
 [[/script]]
 [[/body]]
 [[/html]]
