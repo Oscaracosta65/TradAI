@@ -1180,7 +1180,7 @@ button.button-reset:hover{
       or click [[strong]]Save Selected[[/strong]] to pick only the ones you want.
       You stay on this page the whole time - nothing disappears.
     [[/div]]
-    [[button type="button" id="skai-batch-save-all" class="btn"
+    [[button type="button" id="skai-batch-save-all" class="btn-outline"
       style="font-size:0.85rem;padding:6px 14px;"]]
       Save All 9
     [[/button]]
