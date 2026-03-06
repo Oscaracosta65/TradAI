@@ -2224,9 +2224,9 @@ function renderBacktestResults(results) {
         skaiBlendReadoutEl.textContent =
           'Mode: ' + String(modeKey || 'balanced') +
           ' • AI weight: ' + skaiFmt2(lam) +
-          ' • Skip: ' + skaiFmt2(skip) +
+          ' • Skip weight: ' + skaiFmt2(skip) +
           ' • Sharpness: ' + skaiFmt2(beta) +
-          ' • T: ' + skaiFmt2(tempT);
+          ' • Temp: ' + skaiFmt2(tempT);
       }
 
       function formatLambda(val) {
@@ -3964,6 +3964,10 @@ document.addEventListener('DOMContentLoaded', function () {
           data.push(encodeURIComponent(el.name) + "=" + encodeURIComponent(el.value || ""));
         } else if (tag === "TEXTAREA" || tag === "SELECT") {
           data.push(encodeURIComponent(el.name) + "=" + encodeURIComponent(el.value || ""));
+        } else if (tag === "BUTTON" && el.type === "submit") {
+          /* <button> elements have empty value by default; use "1" to match standard
+             HTML form submission behavior where a clicked submit button sends name=1 */
+          data.push(encodeURIComponent(el.name) + "=" + encodeURIComponent(el.value || "1"));
         }
       }
       var body = data.join("&");
@@ -4005,7 +4009,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function wireSaveForms() {
     var forms = document.querySelectorAll("form");
     for (var i = 0; i < forms.length; i++) {
-      if (forms[i].querySelector("input[name='save_set']")) {
+      if (forms[i].querySelector("[name='save_set']")) {
         interceptSaveForm(forms[i]);
       }
     }
@@ -4334,7 +4338,9 @@ document.addEventListener('DOMContentLoaded', function () {
     try { detail.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
   }
 
-  function saveAllSequential(indices, doneCallback) {
+  function saveAllSequential(indices, doneCallback, saveCount, totalCount) {
+    if (saveCount === undefined) { saveCount = 0; }
+    if (totalCount === undefined) { totalCount = indices.length; }
     if (!indices || indices.length === 0) {
       if (doneCallback) { doneCallback(); }
       return;
@@ -4343,7 +4349,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var rest = indices.slice(1);
     var r = batchResults[idx];
     if (!r || !r.done) {
-      saveAllSequential(rest, doneCallback);
+      saveAllSequential(rest, doneCallback, saveCount, totalCount);
       return;
     }
 
@@ -4352,7 +4358,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var form = qs("savePredictionForm");
     if (!form) {
-      saveAllSequential(rest, doneCallback);
+      saveAllSequential(rest, doneCallback, saveCount, totalCount);
       return;
     }
 
@@ -4368,12 +4374,18 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     } catch (_) {}
 
+    /* Show saving progress: Saving 1 of 9, 2 of 9 ... */
+    var currentSaveNum = saveCount + 1;
+    if (window.skaiShowSaveToast) {
+      window.skaiShowSaveToast("Saving " + currentSaveNum + " of " + totalCount + "...");
+    }
+
     var ev = document.createEvent("Event");
     ev.initEvent("submit", true, true);
     form.dispatchEvent(ev);
 
     setTimeout(function () {
-      saveAllSequential(rest, doneCallback);
+      saveAllSequential(rest, doneCallback, currentSaveNum, totalCount);
     }, 2500); /* 2.5-second delay between sequential saves */
   }
 
@@ -4484,8 +4496,9 @@ document.addEventListener('DOMContentLoaded', function () {
           alert("No completed runs to save.");
           return;
         }
+        var totalRuns = indices.length;
         saveAllSequential(indices, function () {
-          if (window.skaiShowSaveToast) { window.skaiShowSaveToast("All saved."); }
+          if (window.skaiShowSaveToast) { window.skaiShowSaveToast("All " + totalRuns + " " + (totalRuns === 1 ? "run" : "runs") + " saved to your dashboard."); }
         });
       }, false);
     }
