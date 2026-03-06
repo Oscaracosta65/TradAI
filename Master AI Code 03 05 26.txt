@@ -1231,7 +1231,7 @@ button.button-reset:hover{
         [[/button]]
       [[/div]]
 [[style]]
-/* Modal Styling – SKAI look */
+/* Modal Styling – Membership prompt */
 #signupOverlay {
   display: none;
   position: fixed;
@@ -1312,8 +1312,8 @@ function showSignUpPopup() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  const close = document.getElementById('signupModalClose');
-  const overlay = document.getElementById('signupOverlay');
+  var close = document.getElementById('signupModalClose');
+  var overlay = document.getElementById('signupOverlay');
 
   close.addEventListener('click', function () {
     overlay.style.display = 'none';
@@ -2067,73 +2067,53 @@ document.addEventListener('DOMContentLoaded', function () {
 // --- BEGIN: Define renderBacktestResults FIRST --- 
 // ── UPDATED renderBacktestResults ──
 function renderBacktestResults(results) {
-  let tableHTML = `
-    [[style]]
-      .backtest-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
-      .backtest-table th, .backtest-table td {
-        border: 1px solid #ccc;
-        padding: 8px;
-        text-align: center;
-      }
-      .backtest-table th {
-        background-color: #3498db;
-        color: #fff;
-      }
-    [[/style]]
-    [[table class="backtest-table"]]
-      [[thead]]
-        [[tr]]
-          [[th]]Draw Date[[/th]]
-          [[th]]Actual Main Numbers[[/th]]
-          [[th]]Actual Extra Ball(s)[[/th]]
-          [[th]]Predicted Main Numbers (Top 20)[[/th]]
-          [[th]]Predicted Extra Ball(s)[[/th]]
-          [[th]]Main Match Count[[/th]]
-          [[th]]Extra Match Count[[/th]]
-        [[/tr]]
-      [[/thead]]
-      [[tbody]]
-  `;
+  var tableHTML =
+    '[[style]]' +
+    '.backtest-table{width:100%;border-collapse:collapse;margin-top:20px;}' +
+    '.backtest-table th,.backtest-table td{border:1px solid #ccc;padding:8px;text-align:center;}' +
+    '.backtest-table th{background-color:#3498db;color:#fff;}' +
+    '[[/style]]' +
+    '[[table class="backtest-table"]]' +
+    '[[thead]][[tr]]' +
+    '[[th]]Draw Date[[/th]]' +
+    '[[th]]Actual Main Numbers[[/th]]' +
+    '[[th]]Actual Extra Ball(s)[[/th]]' +
+    '[[th]]Predicted Main Numbers (Top 20)[[/th]]' +
+    '[[th]]Predicted Extra Ball(s)[[/th]]' +
+    '[[th]]Main Match Count[[/th]]' +
+    '[[th]]Extra Match Count[[/th]]' +
+    '[[/tr]][[/thead]]' +
+    '[[tbody]]';
 
-  results.forEach(r => {
-    tableHTML += `
-      [[tr]]
-        [[td]]${r.date}[[/td]]
-        [[td]]${r.actualMain}[[/td]]
-        [[td]]${r.actualExtra.length ? r.actualExtra.join(', ') : '–'}[[/td]]
-        [[td]]${r.predictedMain}[[/td]]
-        [[td]]${r.predictedExtra.length ? r.predictedExtra.join(', ') : '–'}[[/td]]
-        [[td]]${r.mainMatchCount}[[/td]]
-        [[td]]${r.extraMatchCount}[[/td]]
-      [[/tr]]
-    `;
+  results.forEach(function(r) {
+    tableHTML +=
+      '[[tr]]' +
+      '[[td]]' + r.date + '[[/td]]' +
+      '[[td]]' + r.actualMain + '[[/td]]' +
+      '[[td]]' + (r.actualExtra.length ? r.actualExtra.join(', ') : '–') + '[[/td]]' +
+      '[[td]]' + r.predictedMain + '[[/td]]' +
+      '[[td]]' + (r.predictedExtra.length ? r.predictedExtra.join(', ') : '–') + '[[/td]]' +
+      '[[td]]' + r.mainMatchCount + '[[/td]]' +
+      '[[td]]' + r.extraMatchCount + '[[/td]]' +
+      '[[/tr]]';
   });
 
-   tableHTML += `
-      [[/tbody]]
-    [[/table]]
-  `;
+  tableHTML += '[[/tbody]][[/table]]';
 
-  // SKAI proper scoring summary (if present)
+  // Proper scoring summary (if present)
   if (results && results.skaiSummary) {
-    const s = results.skaiSummary;
-
-    tableHTML += `
-      [[div style="margin-top:12px; padding:10px; border:1px solid #ccc; border-radius:6px; text-align:left;"]]
-        [[div style="font-weight:700; margin-bottom:6px;"]]LottoExpert AI Backtest Summary[[/div]]
-        [[div]]Steps: ${s.steps}[[/div]]
-        [[div]]Main: Avg Expected Mass (in picks): ${Number(s.avgExpectedMassMain).toFixed(4)}[[/div]]
-        [[div]]Main: Avg Brier (lower better): ${Number(s.avgBrierMain).toFixed(6)}[[/div]]
-        [[div]]Main: Avg LogLoss (lower better): ${Number(s.avgLogLossMain).toFixed(6)}[[/div]]
-        [[div]]Extra: Avg Expected Mass (in picks): ${Number(s.avgExpectedMassExtra).toFixed(4)}[[/div]]
-        [[div]]Extra: Avg Brier (lower better): ${Number(s.avgBrierExtra).toFixed(6)}[[/div]]
-        [[div]]Extra: Avg LogLoss (lower better): ${Number(s.avgLogLossExtra).toFixed(6)}[[/div]]
-      [[/div]]
-    `;
+    var s = results.skaiSummary;
+    tableHTML +=
+      '[[div style="margin-top:12px; padding:10px; border:1px solid #ccc; border-radius:6px; text-align:left;"]]' +
+      '[[div style="font-weight:700; margin-bottom:6px;"]]LottoExpert AI Backtest Summary[[/div]]' +
+      '[[div]]Steps: ' + s.steps + '[[/div]]' +
+      '[[div]]Main: Avg Expected Mass (in picks): ' + Number(s.avgExpectedMassMain).toFixed(4) + '[[/div]]' +
+      '[[div]]Main: Avg Brier (lower better): ' + Number(s.avgBrierMain).toFixed(6) + '[[/div]]' +
+      '[[div]]Main: Avg LogLoss (lower better): ' + Number(s.avgLogLossMain).toFixed(6) + '[[/div]]' +
+      '[[div]]Extra: Avg Expected Mass (in picks): ' + Number(s.avgExpectedMassExtra).toFixed(4) + '[[/div]]' +
+      '[[div]]Extra: Avg Brier (lower better): ' + Number(s.avgBrierExtra).toFixed(6) + '[[/div]]' +
+      '[[div]]Extra: Avg LogLoss (lower better): ' + Number(s.avgLogLossExtra).toFixed(6) + '[[/div]]' +
+      '[[/div]]';
   }
 
   return tableHTML;
@@ -2143,7 +2123,7 @@ function renderBacktestResults(results) {
 
 
       // Prevent any accidental form submission
-      const predictionForm = document.getElementById('predictionForm');
+      var predictionForm = document.getElementById('predictionForm');
       if (predictionForm) {
         predictionForm.addEventListener('submit', function(e) {
           e.preventDefault();
@@ -2153,57 +2133,59 @@ function renderBacktestResults(results) {
       var draws = <?php echo json_encode($draws); ?>;
       console.log("All Draws:", draws);
       // Lottery parameters
-      const mainNumbersMax = <?php echo $mainNumbersMax; ?>;
-      const pickSize = <?php echo $pickSize; ?>;
-      const hasExtraBall = <?php echo $hasExtraBall ? 'true' : 'false'; ?>;
-      const numExtraBalls   = <?php echo $numExtraBalls; ?>;  
-      const extraBallMax = <?php echo $extraBallMax !== null ? $extraBallMax : 'null'; ?>;
-      const topExtraSuggestions = 5;
+      var mainNumbersMax = <?php echo $mainNumbersMax; ?>;
+      var pickSize = <?php echo $pickSize; ?>;
+      var hasExtraBall = <?php echo $hasExtraBall ? 'true' : 'false'; ?>;
+      var numExtraBalls   = <?php echo $numExtraBalls; ?>;
+      var extraBallMax = <?php echo $extraBallMax !== null ? $extraBallMax : 'null'; ?>;
+      var topExtraSuggestions = 5;
         
         
       // Normalize data function
       function normalizeData(data) {
-        return data.map(arr => arr.map((num, index) => {
-          if (index < pickSize) {
-            return num / mainNumbersMax;
-          } else if (hasExtraBall && extraBallMax !== null) {
-            return num / extraBallMax;
-          } else {
-            return num;
-          }
-        }));
+        return data.map(function(arr) {
+          return arr.map(function(num, index) {
+            if (index < pickSize) {
+              return num / mainNumbersMax;
+            } else if (hasExtraBall && extraBallMax !== null) {
+              return num / extraBallMax;
+            } else {
+              return num;
+            }
+          });
+        });
       }
       
-      const predictionDiv = document.getElementById('prediction');
-      const loadingDiv = document.getElementById('loading');
-      const numberBreakdownDiv = document.getElementById('numberBreakdown');
-      const progressBar = document.getElementById('progressBar');
-      const progressMessage = document.getElementById('progressMessage');
-      const startButton = document.getElementById('startPrediction');
-      const countdownDiv = document.getElementById('countdown');
-      const funMessageDiv = document.getElementById('funMessage');
-      const predictedNumbersDiv = document.getElementById('predictedNumbers');
-      const numberBreakdownTableDiv = document.getElementById('numberBreakdownTable');
-      
-      const backtestNoticeDiv = document.getElementById('backtestNotice');
-      const backtestResultsDiv = document.getElementById('backtestResults');
-      const backtestProgressContainer = document.getElementById('backtestProgressContainer');
-      const backtestProgressBar = document.getElementById('backtestProgressBar');
-      const epochsInput = document.getElementById('epochs');
-      const batchSizeInput = document.getElementById('batchSize');
-      const dropoutRateInput = document.getElementById('dropoutRate');
-      const latestDrawDateInput = document.getElementById('latestDrawDate');
-      const learningRateInput = document.getElementById('learningRate');
-      const activationFunctionInput = document.getElementById('activationFunction');
-      const hiddenLayersInput = document.getElementById('hiddenLayers');
-      const enableBacktestCheckbox = document.getElementById('enableBacktest');
+      var predictionDiv = document.getElementById('prediction');
+      var loadingDiv = document.getElementById('loading');
+      var numberBreakdownDiv = document.getElementById('numberBreakdown');
+      var progressBar = document.getElementById('progressBar');
+      var progressMessage = document.getElementById('progressMessage');
+      var startButton = document.getElementById('startPrediction');
+      var countdownDiv = document.getElementById('countdown');
+      var funMessageDiv = document.getElementById('funMessage');
+      var predictedNumbersDiv = document.getElementById('predictedNumbers');
+      var numberBreakdownTableDiv = document.getElementById('numberBreakdownTable');
+
+      var backtestNoticeDiv = document.getElementById('backtestNotice');
+      var backtestResultsDiv = document.getElementById('backtestResults');
+      var backtestProgressContainer = document.getElementById('backtestProgressContainer');
+      var backtestProgressBar = document.getElementById('backtestProgressBar');
+      var epochsInput = document.getElementById('epochs');
+      var batchSizeInput = document.getElementById('batchSize');
+      var dropoutRateInput = document.getElementById('dropoutRate');
+      var latestDrawDateInput = document.getElementById('latestDrawDate');
+      var learningRateInput = document.getElementById('learningRate');
+      var activationFunctionInput = document.getElementById('activationFunction');
+      var hiddenLayersInput = document.getElementById('hiddenLayers');
+      var enableBacktestCheckbox = document.getElementById('enableBacktest');
 
       // Live λ (recency decay) readout
-      const recencyDecayInput = document.getElementById('recencyDecay');
-      const recencyDecayLambdaReadout = document.getElementById('recencyDecayLambdaReadout');
+      var recencyDecayInput = document.getElementById('recencyDecay');
+      var recencyDecayLambdaReadout = document.getElementById('recencyDecayLambdaReadout');
 
-      // PATCH 7B-1: Live SKAI blend readout (AI λ vs Skip 1−λ, plus β and T)
-      const skaiBlendReadoutEl = document.getElementById('skaiBlendReadout');
+      // PATCH 7B-1: Live blend readout (AI λ vs Skip 1-λ, plus β and T)
+      var skaiBlendReadoutEl = document.getElementById('skaiBlendReadout');
 
       function skaiFmt2(n) {
         var x = parseFloat(n);
@@ -2253,7 +2235,7 @@ function renderBacktestResults(results) {
       // Guard so a missing checkbox can't break the whole script (and kill the progress bar)
       if (enableBacktestCheckbox) {
         enableBacktestCheckbox.addEventListener('change', function() {
-          const numDrawsSelect = document.getElementById('numDrawsBacktest');
+          var numDrawsSelect = document.getElementById('numDrawsBacktest');
           if (numDrawsSelect) {
             numDrawsSelect.disabled = !this.checked;
           }
@@ -2614,16 +2596,16 @@ function describeMode(modeKey) {
       }
       */ // PATCH: end disabled legacy SKAI preset system
       
-      const epochValue = document.getElementById('epochValue');
-      const batchSizeValue = document.getElementById('batchSizeValue');
-      const dropoutRateValue = document.getElementById('dropoutRateValue');
-      const latestDrawDateValue = document.getElementById('latestDrawDateValue');
-      const predictionDateValue = document.getElementById('predictionDateValue');
-      const learningRateValue = document.getElementById('learningRateValue');
-      const activationFunctionValue = document.getElementById('activationFunctionValue');
-      const hiddenLayersValue = document.getElementById('hiddenLayersValue');
-      const recencyDecayValue     = document.getElementById('recencyDecayValue');
-const funMessages = [
+      var epochValue = document.getElementById('epochValue');
+      var batchSizeValue = document.getElementById('batchSizeValue');
+      var dropoutRateValue = document.getElementById('dropoutRateValue');
+      var latestDrawDateValue = document.getElementById('latestDrawDateValue');
+      var predictionDateValue = document.getElementById('predictionDateValue');
+      var learningRateValue = document.getElementById('learningRateValue');
+      var activationFunctionValue = document.getElementById('activationFunctionValue');
+      var hiddenLayersValue = document.getElementById('hiddenLayersValue');
+      var recencyDecayValue     = document.getElementById('recencyDecayValue');
+var funMessages = [
   "Analyzing past draws for patterns…",
   "Measuring how often each number appears over time…",
   "Checking how recent draws differ from older ones…",
@@ -2633,8 +2615,8 @@ const funMessages = [
   "Refining the model to reduce overfitting…",
   "Preparing your probability-based number rankings…"
 ];
-      
-      const messages = [
+
+      var messages = [
         "System Status: Loading historical lottery data...",
         "System Status: Initializing AI model...",
         "System Status: Processing training data...",
@@ -2645,28 +2627,29 @@ const funMessages = [
         "System Status: Finalizing results...",
         "System Status: Analysis complete!"
       ];
-      
-      let startTime;
-      let epochStartTime;
-      let smoothedTimePerEpoch = 0;
-      const smoothingFactor = 0.1;
-      const funMessageInterval = 5000;
+
+      var startTime;
+      var epochStartTime;
+      var smoothedTimePerEpoch = 0;
+      var smoothingFactor = 0.1;
+      var funMessageInterval = 5000;
       
 
 // --- BEGIN FIXED BACKTEST FUNCTIONS ---
 
 // Utility: build a tensor of recency-decay weights
 function buildSampleWeightTensor(numSamples, decay) {
-  const weights = Array.from({length: numSamples}, (_, i) =>
-    Math.pow(decay, (numSamples - 1) - i)
-  );
+  var weights = [];
+  for (var i = 0; i < numSamples; i++) {
+    weights.push(Math.pow(decay, (numSamples - 1) - i));
+  }
   return tf.tensor1d(weights);
 }
 
 // Global skip influence factor (0.0–1.0).
 // Higher values make Skip & Hit bias stronger in the final probabilities.
 // You can tweak this later (e.g., 0.2 = softer, 0.5 = stronger).
-const SKIP_ALPHA = 0.3;
+var SKIP_ALPHA = 0.3;
 
 // --- SKAI probabilistic blending helpers (math-correct ensemble) ---
 // NOTE: SKIP_ALPHA remains for backwards-compatibility, but SKAI now uses a coherent expert blend.
@@ -2675,7 +2658,7 @@ var SKAI_SKIP_BETA_DEFAULT = 2.0;  // controls how strongly skipScores separate 
 var SKAI_BLEND_DEFAULT     = 0.65; // Balanced-mode default AI weight λ (hoist-safe)
 
 function getSelectedSkaiMode() {
-  const btn = document.querySelector('.skai-mode-btn[aria-pressed="true"]');
+  var btn = document.querySelector('.skai-mode-btn[aria-pressed="true"]');
   return (btn && btn.getAttribute('data-skai-mode')) ? btn.getAttribute('data-skai-mode') : 'balanced';
 }
 
@@ -2693,12 +2676,12 @@ function getSkaiBlendLambda(modeKey) {
 
 // Jensen–Shannon divergence for two discrete distributions (bounded, symmetric, stable).
 function skaiJSDivergence(p, q) {
-  const n = Math.min(p.length, q.length);
-  let js = 0;
-  for (let i = 0; i < n; i++) {
-    const pi = Math.max(SKAI_EPS, p[i]);
-    const qi = Math.max(SKAI_EPS, q[i]);
-    const mi = 0.5 * (pi + qi);
+  var n = Math.min(p.length, q.length);
+  var js = 0;
+  for (var i = 0; i < n; i++) {
+    var pi = Math.max(SKAI_EPS, p[i]);
+    var qi = Math.max(SKAI_EPS, q[i]);
+    var mi = 0.5 * (pi + qi);
     js += 0.5 * (pi * Math.log(pi / mi) + qi * Math.log(qi / mi));
   }
   // Natural log units; bounded in [0, ln(2)]
@@ -2709,14 +2692,14 @@ function skaiJSDivergence(p, q) {
 // - If they agree (low JSD), lean AI-forward more.
 // - If they disagree (high JSD), pull λ toward 0.5 to avoid over-committing.
 function skaiAdaptiveLambdaMixed(aiNorm, skipProb) {
-  const js = skaiJSDivergence(aiNorm, skipProb);
-  const jsMax = Math.log(2); // theoretical maximum
-  const agree = 1 - Math.min(1, js / jsMax); // 1=agree, 0=disagree
+  var js = skaiJSDivergence(aiNorm, skipProb);
+  var jsMax = Math.log(2); // theoretical maximum
+  var agree = 1 - Math.min(1, js / jsMax); // 1=agree, 0=disagree
 
   // Map agreement into a safe λ band for Mixed:
   // - High agreement → λ up to ~0.80
   // - Low agreement  → λ down to ~0.50
-  const lambda = 0.50 + (0.30 * agree);
+  var lambda = 0.50 + (0.30 * agree);
 
   // Clamp defensively
   return Math.max(0.35, Math.min(0.90, lambda));
@@ -2727,7 +2710,7 @@ function getSkaiLambda(modeKey, aiNorm, skipProb) {
   if (modeKey === 'mixed') {
     return skaiAdaptiveLambdaMixed(aiNorm, skipProb);
   }
-  const lam = getSkaiBlendLambda(modeKey);
+  var lam = getSkaiBlendLambda(modeKey);
   return (typeof lam === 'number' && isFinite(lam)) ? lam : SKAI_BLEND_DEFAULT;
 }
 
@@ -2760,9 +2743,9 @@ function skaiTemperedMass(probMass, tau) {
   if (!tau || tau <= 1) {
     return normalizePositive(probMass);
   }
-  const raw = new Array(probMass.length);
-  const inv = 1 / tau;
-  for (let i = 0; i < probMass.length; i++) {
+  var raw = new Array(probMass.length);
+  var inv = 1 / tau;
+  for (var i = 0; i < probMass.length; i++) {
     raw[i] = Math.pow(Math.max(SKAI_EPS, probMass[i]), inv);
   }
   return normalizePositive(raw);
@@ -2770,22 +2753,22 @@ function skaiTemperedMass(probMass, tau) {
 
 // Weighted sampling without replacement from a probability mass.
 function skaiSampleWithoutReplacement(probMass, count) {
-  const picks = [];
-  const available = probMass.slice(0);
+  var picks = [];
+  var available = probMass.slice(0);
 
-  for (let k = 0; k < count; k++) {
+  for (var k = 0; k < count; k++) {
     // Build CDF
-    let sum = 0;
-    for (let i = 0; i < available.length; i++) {
+    var sum = 0;
+    for (var i = 0; i < available.length; i++) {
       sum += Math.max(0, available[i]);
     }
     if (sum <= 0) {
       break;
     }
 
-    let r = Math.random() * sum;
-    let chosen = -1;
-    for (let i = 0; i < available.length; i++) {
+    var r = Math.random() * sum;
+    var chosen = -1;
+    for (var i = 0; i < available.length; i++) {
       r -= Math.max(0, available[i]);
       if (r <= 0) { chosen = i; break; }
     }
@@ -2800,47 +2783,53 @@ function skaiSampleWithoutReplacement(probMass, count) {
 
 // Select final picks: exploit top-(pickSize-exploreCount), explore sample the rest.
 function skaiSelectPicksFromMass(probMass, pickSize, modeKey) {
-  const exploreCount = getSkaiExploreCount(modeKey, pickSize);
-  const tau = getSkaiExploreTau(modeKey);
+  var exploreCount = getSkaiExploreCount(modeKey, pickSize);
+  var tau = getSkaiExploreTau(modeKey);
 
-  const indices = [];
+  var indices = [];
   // Exploit indices by sorting
-  const ranked = probMass.map((p, i) => ({ i, p })).sort((a, b) => b.p - a.p);
+  var ranked = probMass.map(function(p, i) { return { i: i, p: p }; }).sort(function(a, b) { return b.p - a.p; });
 
-  const exploitCount = Math.max(0, pickSize - exploreCount);
-  for (let k = 0; k < exploitCount && k < ranked.length; k++) {
+  var exploitCount = Math.max(0, pickSize - exploreCount);
+  for (var k = 0; k < exploitCount && k < ranked.length; k++) {
     indices.push(ranked[k].i);
   }
 
   if (exploreCount > 0) {
     // Build remaining mass excluding already-picked exploit indices
-    const remaining = probMass.slice(0);
-    for (let k = 0; k < indices.length; k++) {
+    var remaining = probMass.slice(0);
+    for (var k = 0; k < indices.length; k++) {
       remaining[indices[k]] = 0;
     }
 
-    const tempered = skaiTemperedMass(remaining, tau);
-    const sampled = skaiSampleWithoutReplacement(tempered, exploreCount);
-    for (let k = 0; k < sampled.length; k++) {
+    var tempered = skaiTemperedMass(remaining, tau);
+    var sampled = skaiSampleWithoutReplacement(tempered, exploreCount);
+    for (var k = 0; k < sampled.length; k++) {
       indices.push(sampled[k]);
     }
   }
 
- // Return sorted numeric values (1-based numbers) for stable display (dedup defensive)
-  const uniq = Array.from(new Set(indices)).map(i => i + 1);
-  return uniq.sort((a, b) => a - b);}
+  // Return sorted numeric values (1-based numbers) for stable display (dedup defensive)
+  var seen = {};
+  var uniq = [];
+  for (var m = 0; m < indices.length; m++) {
+    var idx = indices[m] + 1;
+    if (!seen[idx]) { seen[idx] = true; uniq.push(idx); }
+  }
+  return uniq.sort(function(a, b) { return a - b; });
+}
 
 // Normalize a positive vector into sum-to-1 mass (with epsilon floor).
 function normalizePositive(arr) {
-  let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    const v = (typeof arr[i] === 'number' && isFinite(arr[i])) ? Math.max(SKAI_EPS, arr[i]) : SKAI_EPS;
+  var sum = 0;
+  for (var i = 0; i < arr.length; i++) {
+    var v = (typeof arr[i] === 'number' && isFinite(arr[i])) ? Math.max(SKAI_EPS, arr[i]) : SKAI_EPS;
     sum += v;
   }
-  const out = new Array(arr.length);
-  const denom = (sum > 0) ? sum : (arr.length * SKAI_EPS);
-  for (let i = 0; i < arr.length; i++) {
-    const v = (typeof arr[i] === 'number' && isFinite(arr[i])) ? Math.max(SKAI_EPS, arr[i]) : SKAI_EPS;
+  var out = new Array(arr.length);
+  var denom = (sum > 0) ? sum : (arr.length * SKAI_EPS);
+  for (var i = 0; i < arr.length; i++) {
+    var v = (typeof arr[i] === 'number' && isFinite(arr[i])) ? Math.max(SKAI_EPS, arr[i]) : SKAI_EPS;
     out[i] = v / denom;
   }
   return out;
@@ -2848,9 +2837,9 @@ function normalizePositive(arr) {
 
 // Turn skipScores (0..1) into a proper expert distribution using a softmax-like transform.
 function buildSkipExpertProbs(skipScores, beta) {
-  const raw = new Array(skipScores.length);
-  for (let i = 0; i < skipScores.length; i++) {
-    const u = (typeof skipScores[i] === 'number' && isFinite(skipScores[i])) ? skipScores[i] : 0;
+  var raw = new Array(skipScores.length);
+  for (var i = 0; i < skipScores.length; i++) {
+    var u = (typeof skipScores[i] === 'number' && isFinite(skipScores[i])) ? skipScores[i] : 0;
     // center at 0.5 to reduce runaway bias; beta controls separation
     raw[i] = Math.exp(beta * (u - 0.5));
   }
@@ -2859,10 +2848,10 @@ function buildSkipExpertProbs(skipScores, beta) {
 
 // Log-opinion pool (geometric mixture): p ∝ ai^λ * skip^(1-λ)
 function logOpinionPool(aiProbs, skipProbs, lambda) {
-  const out = new Array(aiProbs.length);
-  for (let i = 0; i < aiProbs.length; i++) {
-    const a = Math.max(SKAI_EPS, aiProbs[i]);
-    const s = Math.max(SKAI_EPS, skipProbs[i]);
+  var out = new Array(aiProbs.length);
+  for (var i = 0; i < aiProbs.length; i++) {
+    var a = Math.max(SKAI_EPS, aiProbs[i]);
+    var s = Math.max(SKAI_EPS, skipProbs[i]);
     out[i] = Math.exp(lambda * Math.log(a) + (1 - lambda) * Math.log(s));
   }
   return normalizePositive(out);
@@ -2878,11 +2867,11 @@ function skaiClipProb(p) {
 function skaiBrierScore(probMass, actualSet, maxVal) {
   // probMass: array length maxVal, sum-to-1
   // actualSet: Set of winning numbers in 1..maxVal
-  let sum = 0;
-  for (let i = 0; i < maxVal; i++) {
-    const p = skaiClipProb(probMass[i]);
-    const y = actualSet.has(i + 1) ? 1 : 0;
-    const d = p - y;
+  var sum = 0;
+  for (var i = 0; i < maxVal; i++) {
+    var p = skaiClipProb(probMass[i]);
+    var y = actualSet.has(i + 1) ? 1 : 0;
+    var d = p - y;
     sum += d * d;
   }
   return sum / maxVal;
@@ -2890,10 +2879,10 @@ function skaiBrierScore(probMass, actualSet, maxVal) {
 
 function skaiLogLoss(probMass, actualSet, maxVal) {
   // Strictly proper for Bernoulli marginals; clipped to avoid -Inf
-  let sum = 0;
-  for (let i = 0; i < maxVal; i++) {
-    const p = skaiClipProb(probMass[i]);
-    const y = actualSet.has(i + 1) ? 1 : 0;
+  var sum = 0;
+  for (var i = 0; i < maxVal; i++) {
+    var p = skaiClipProb(probMass[i]);
+    var y = actualSet.has(i + 1) ? 1 : 0;
     sum += y ? -Math.log(p) : -Math.log(1 - p);
   }
   return sum / maxVal;
@@ -2901,9 +2890,9 @@ function skaiLogLoss(probMass, actualSet, maxVal) {
 
 function skaiExpectedMassInPicks(probMass, picks) {
   // picks: array of numbers (1..max)
-  let s = 0;
-  for (let i = 0; i < picks.length; i++) {
-    const idx = picks[i] - 1;
+  var s = 0;
+  for (var i = 0; i < picks.length; i++) {
+    var idx = picks[i] - 1;
     if (idx >= 0 && idx < probMass.length) {
       s += skaiClipProb(probMass[idx]);
     }
@@ -2915,24 +2904,24 @@ function skaiExpectedMassInPicks(probMass, picks) {
 // drawsNumbers: [ [n1, n2, ...], ... ] in OLDEST → NEWEST order.
 // For each draw t, we compute skipVec[t][k] = draws since number (k+1) last appeared BEFORE draw t.
 function computeSkipFeatureSeries(drawsNumbers, pickSize, mainNumbersMax) {
-  const lastHitIndex   = new Array(mainNumbersMax).fill(null);
-  const skipsPerStep   = [];
+  var lastHitIndex   = new Array(mainNumbersMax).fill(null);
+  var skipsPerStep   = [];
 
-  for (let t = 0; t < drawsNumbers.length; t++) {
-    const skipVec = new Array(mainNumbersMax).fill(0);
+  for (var t = 0; t < drawsNumbers.length; t++) {
+    var skipVec = new Array(mainNumbersMax).fill(0);
 
     // For each number, how long since last seen?
-    for (let k = 0; k < mainNumbersMax; k++) {
-      const last = lastHitIndex[k];
+    for (var k = 0; k < mainNumbersMax; k++) {
+      var last = lastHitIndex[k];
       // If we've never seen it, treat skip as t (all previous draws missed it).
-      const skip = (last === null) ? t : (t - last - 1);
+      var skip = (last === null) ? t : (t - last - 1);
       skipVec[k] = skip;
     }
 
     // Now update lastHitIndex using the CURRENT draw's main numbers.
-    const draw = drawsNumbers[t];
-    for (let j = 0; j < pickSize; j++) {
-      const n = draw[j];
+    var draw = drawsNumbers[t];
+    for (var j = 0; j < pickSize; j++) {
+      var n = draw[j];
       if (n >= 1 && n <= mainNumbersMax) {
         lastHitIndex[n - 1] = t;
       }
@@ -2942,10 +2931,10 @@ function computeSkipFeatureSeries(drawsNumbers, pickSize, mainNumbersMax) {
   }
 
   // Normalize skips to 0..1 so they play nicely with normalized inputs.
-  let maxSkip = 0;
-  for (let t = 0; t < skipsPerStep.length; t++) {
-    const vec = skipsPerStep[t];
-    for (let i = 0; i < vec.length; i++) {
+  var maxSkip = 0;
+  for (var t = 0; t < skipsPerStep.length; t++) {
+    var vec = skipsPerStep[t];
+    for (var i = 0; i < vec.length; i++) {
       if (vec[i] > maxSkip) {
         maxSkip = vec[i];
       }
@@ -2953,9 +2942,9 @@ function computeSkipFeatureSeries(drawsNumbers, pickSize, mainNumbersMax) {
   }
 
   if (maxSkip > 0) {
-    for (let t = 0; t < skipsPerStep.length; t++) {
-      const vec = skipsPerStep[t];
-      for (let i = 0; i < vec.length; i++) {
+    for (var t = 0; t < skipsPerStep.length; t++) {
+      var vec = skipsPerStep[t];
+      for (var i = 0; i < vec.length; i++) {
         vec[i] = vec[i] / maxSkip;
       }
     }
@@ -2969,16 +2958,16 @@ function computeSkipFeatureSeries(drawsNumbers, pickSize, mainNumbersMax) {
 // computeSkipScores(...) continues to work.
 function computeSkipScores(drawsDesc, pickSize, mainNumbersMax) {
   // Convert DESC draws into ASC array of numbers for computeSkipFeatureSeries.
-  const drawsAscNumbers = [...drawsDesc].slice().reverse().map(d => d.numbers);
+  var drawsAscNumbers = drawsDesc.slice().reverse().map(function(d) { return d.numbers; });
   if (!drawsAscNumbers.length) {
     return new Array(mainNumbersMax).fill(0);
   }
 
-  const skipSeries = computeSkipFeatureSeries(drawsAscNumbers, pickSize, mainNumbersMax);
-  const latestVec  = skipSeries[skipSeries.length - 1] || [];
-  const result     = new Array(mainNumbersMax).fill(0);
+  var skipSeries = computeSkipFeatureSeries(drawsAscNumbers, pickSize, mainNumbersMax);
+  var latestVec  = skipSeries[skipSeries.length - 1] || [];
+  var result     = new Array(mainNumbersMax).fill(0);
 
-  for (let i = 0; i < mainNumbersMax; i++) {
+  for (var i = 0; i < mainNumbersMax; i++) {
     result[i] = (typeof latestVec[i] === 'number') ? latestVec[i] : 0;
   }
 
@@ -2986,95 +2975,95 @@ function computeSkipScores(drawsDesc, pickSize, mainNumbersMax) {
 }
 
 async function trainModelForBacktest(trainingDraws, settings, onEpochEndCallback) {
-  const pickSize       = settings.PICK_SIZE;
-  const mainNumbersMax = settings.MAIN_MAX;
-  const extraBallMax   = settings.EXTRA_MAX;
-  const hasExtraBall   = settings.HAS_EXTRA;
+  var pickSize       = settings.PICK_SIZE;
+  var mainNumbersMax = settings.MAIN_MAX;
+  var extraBallMax   = settings.EXTRA_MAX;
+  var hasExtraBall   = settings.HAS_EXTRA;
 
   // 1) normalize inputs
-  const drawsNumbers = trainingDraws.map(d => d.numbers);
-  const normalized   = drawsNumbers.map(arr =>
-    arr.map((n, i) =>
-      i < pickSize
+  var drawsNumbers = trainingDraws.map(function(d) { return d.numbers; });
+  var normalized   = drawsNumbers.map(function(arr) {
+    return arr.map(function(n, i) {
+      return i < pickSize
         ? n / mainNumbersMax
-        : (hasExtraBall ? n / extraBallMax : n)
-    )
-  );
+        : (hasExtraBall ? n / extraBallMax : n);
+    });
+  });
 
   // 1b) compute Skip feature series (per draw, per main number)
-  const skipFeatureSeries = computeSkipFeatureSeries(drawsNumbers, pickSize, mainNumbersMax);
+  var skipFeatureSeries = computeSkipFeatureSeries(drawsNumbers, pickSize, mainNumbersMax);
 
   // 2) build X and Y arrays
-  const xs = [], ys_main = [], ys_extra = [];
-  for (let i = 0; i < normalized.length - 1; i++) {
-    const baseInput    = normalized[i];
-    const skipFeatures = skipFeatureSeries[i];
-    const inputVec     = baseInput.concat(skipFeatures);
+  var xs = [], ys_main = [], ys_extra = [];
+  for (var i = 0; i < normalized.length - 1; i++) {
+    var baseInput    = normalized[i];
+    var skipFeatures = skipFeatureSeries[i];
+    var inputVec     = baseInput.concat(skipFeatures);
     xs.push(inputVec);
 
-    const nextNums = drawsNumbers[i + 1];
+    var nextNums = drawsNumbers[i + 1];
 
     // Y for main
-    const mainVec = new Array(mainNumbersMax).fill(0);
-    nextNums.slice(0, pickSize).forEach(n => mainVec[n - 1] = 1);
+    var mainVec = new Array(mainNumbersMax).fill(0);
+    nextNums.slice(0, pickSize).forEach(function(n) { mainVec[n - 1] = 1; });
     ys_main.push(mainVec);
 
     // Y for extra
     if (hasExtraBall) {
-      const extraVec = new Array(extraBallMax).fill(0);
+      var extraVec = new Array(extraBallMax).fill(0);
       extraVec[nextNums[pickSize] - 1] = 1;
       ys_extra.push(extraVec);
     }
   }
 
   // 3) create tensors
-  const xsTensor     = tf.tensor2d(xs);
-  const ysMainTensor = tf.tensor2d(ys_main);
-  let ysExtraTensor;
+  var xsTensor     = tf.tensor2d(xs);
+  var ysMainTensor = tf.tensor2d(ys_main);
+  var ysExtraTensor;
   if (hasExtraBall) {
     ysExtraTensor = tf.tensor2d(ys_extra);
   }
 
   // 4) recency-decay weights
-  const sampleWeightTensor = buildSampleWeightTensor(xs.length, settings.RECENCY_DECAY);
+  var sampleWeightTensor = buildSampleWeightTensor(xs.length, settings.RECENCY_DECAY);
 
   // 5) build the model
-  const input = tf.input({ shape: [xs[0].length] });
-  let x = tf.layers.dense({ units: 128, activation: settings.ACTIVATION_FUNCTION }).apply(input);
+  var input = tf.input({ shape: [xs[0].length] });
+  var x = tf.layers.dense({ units: 128, activation: settings.ACTIVATION_FUNCTION }).apply(input);
   x = tf.layers.dropout({ rate: settings.DROPOUT_RATE }).apply(x);
-  for (let i = 0; i < settings.HIDDEN_LAYERS; i++) {
+  for (var i = 0; i < settings.HIDDEN_LAYERS; i++) {
     x = tf.layers.dense({ units: 64, activation: settings.ACTIVATION_FUNCTION }).apply(x);
     x = tf.layers.dropout({ rate: settings.DROPOUT_RATE }).apply(x);
   }
-  const mainOut = tf.layers.dense({
+  var mainOut = tf.layers.dense({
     units: settings.MAIN_MAX,
     activation: 'sigmoid',
     name: 'main_numbers_output'
   }).apply(x);
 
-  let model, outputs;
+  var model, outputs;
   if (hasExtraBall) {
-    const extraOut = tf.layers.dense({
+    var extraOut = tf.layers.dense({
       units: settings.EXTRA_MAX,
       activation: 'sigmoid',
       name: 'extra_output'
     }).apply(x);
     outputs = [mainOut, extraOut];
-    model = tf.model({ inputs: input, outputs });
+    model = tf.model({ inputs: input, outputs: outputs });
   } else {
     outputs = mainOut;
-    model = tf.model({ inputs: input, outputs });
+    model = tf.model({ inputs: input, outputs: outputs });
   }
 
   // 6) compile
-  const optimizer = tf.train.adam(settings.LEARNING_RATE);
-  const loss      = hasExtraBall
+  var optimizer = tf.train.adam(settings.LEARNING_RATE);
+  var loss      = hasExtraBall
     ? ['binaryCrossentropy','binaryCrossentropy']
     : 'binaryCrossentropy';
-  model.compile({ optimizer, loss, metrics: ['accuracy'] });
+  model.compile({ optimizer: optimizer, loss: loss, metrics: ['accuracy'] });
 
   // 7) prepare yTrain (no sampleWeight support in this tfjs build)
-  let yTrain;
+  var yTrain;
   if (hasExtraBall) {
     yTrain = {
       main_numbers_output: ysMainTensor,
@@ -3086,7 +3075,7 @@ async function trainModelForBacktest(trainingDraws, settings, onEpochEndCallback
 
   // 8) fit model (recency-weighted)
   // sampleWeightTensor is a per-sample exponential decay weight (newest samples weigh more).
-  const fitArgs = {
+  var fitArgs = {
     epochs:          settings.EPOCHS,
     batchSize:       settings.BATCH_SIZE,
     shuffle:         false,
@@ -3108,149 +3097,151 @@ async function trainModelForBacktest(trainingDraws, settings, onEpochEndCallback
 
 
 async function runBacktesting(sortedDrawsAsc, settings) {
-  const results      = [];
-  const N            = sortedDrawsAsc.length;
+  var results      = [];
+  var N            = sortedDrawsAsc.length;
 
-  // SKAI proper scoring aggregates (lower is better for Brier/LogLoss)
-  let totalBrierMain = 0;
-  let totalLogLossMain = 0;
-  let totalExpectedMassInPicksMain = 0;
+  // Proper scoring aggregates (lower is better for Brier/LogLoss)
+  var totalBrierMain = 0;
+  var totalLogLossMain = 0;
+  var totalExpectedMassInPicksMain = 0;
 
-  let totalBrierExtra = 0;
-  let totalLogLossExtra = 0;
-  let totalExpectedMassInPicksExtra = 0;  const numBacktests = parseInt(document.getElementById('numDrawsBacktest').value) || 3;
-  const backtestIndices = [];
-  for (let i = N - numBacktests; i < N; i++) if (i >= 1) backtestIndices.push(i);
+  var totalBrierExtra = 0;
+  var totalLogLossExtra = 0;
+  var totalExpectedMassInPicksExtra = 0;
+  var numBacktests = parseInt(document.getElementById('numDrawsBacktest').value) || 3;
+  var backtestIndices = [];
+  for (var i = N - numBacktests; i < N; i++) if (i >= 1) backtestIndices.push(i);
 
   // progress tracking
-  const totalSteps = backtestIndices.length * settings.EPOCHS;
-  let completed    = 0;
+  var totalSteps = backtestIndices.length * settings.EPOCHS;
+  var completed    = 0;
   function updateBacktestProgress() {
     completed++;
-    const pct = Math.round((completed/totalSteps)*100);
+    var pct = Math.round((completed/totalSteps)*100);
     backtestProgressBar.style.width   = pct + '%';
     backtestProgressBar.textContent   = pct + '%';
-    progressMessage.innerText         = `System Status: Backtesting in progress... (${pct}%)`;
+    progressMessage.innerText         = 'System Status: Backtesting in progress... (' + pct + '%)';
   }
 
-  for (let idx of backtestIndices) {
-    const nums       = sortedDrawsAsc[idx].numbers;
-    const actualMain = nums.slice(0, settings.PICK_SIZE);
-    const actualExtra= settings.HAS_EXTRA
+  for (var bi = 0; bi < backtestIndices.length; bi++) {
+    var idx = backtestIndices[bi];
+    var nums       = sortedDrawsAsc[idx].numbers;
+    var actualMain = nums.slice(0, settings.PICK_SIZE);
+    var actualExtra= settings.HAS_EXTRA
       ? nums.slice(settings.PICK_SIZE, settings.PICK_SIZE + settings.EXTRA_COUNT)
       : [];
 
     // train & predict
-    const trainingDraws = sortedDrawsAsc.slice(0, idx);
-    const model         = await trainModelForBacktest(trainingDraws, settings, updateBacktestProgress);
+    var trainingDraws = sortedDrawsAsc.slice(0, idx);
+    var model         = await trainModelForBacktest(trainingDraws, settings, updateBacktestProgress);
 
     // prepare last input (normalized numbers + Skip features)
-    const drawsNumbersForBT   = trainingDraws.map(d => d.numbers);
-    const skipFeatureSeriesBT = computeSkipFeatureSeries(drawsNumbersForBT, settings.PICK_SIZE, settings.MAIN_MAX);
-    const lastIndex           = trainingDraws.length - 1;
+    var drawsNumbersForBT   = trainingDraws.map(function(d) { return d.numbers; });
+    var skipFeatureSeriesBT = computeSkipFeatureSeries(drawsNumbersForBT, settings.PICK_SIZE, settings.MAIN_MAX);
+    var lastIndex           = trainingDraws.length - 1;
 
-    const lastBaseNorm = drawsNumbersForBT[lastIndex].map((v,i)=>
-      i < settings.PICK_SIZE
+    var lastBaseNorm = drawsNumbersForBT[lastIndex].map(function(v,i) {
+      return i < settings.PICK_SIZE
         ? v / settings.MAIN_MAX
-        : (settings.HAS_EXTRA ? v / settings.EXTRA_MAX : v)
-    );
-    const lastSkipFeatures = skipFeatureSeriesBT[lastIndex];
-    const lastInputVec     = lastBaseNorm.concat(lastSkipFeatures);
+        : (settings.HAS_EXTRA ? v / settings.EXTRA_MAX : v);
+    });
+    var lastSkipFeatures = skipFeatureSeriesBT[lastIndex];
+    var lastInputVec     = lastBaseNorm.concat(lastSkipFeatures);
 
-    const pred = model.predict(tf.tensor2d([ lastInputVec ]));
+    var pred = model.predict(tf.tensor2d([ lastInputVec ]));
 
-    const mainArr  = settings.HAS_EXTRA ? pred[0].dataSync() : pred.dataSync();
-    const extraArr = settings.HAS_EXTRA ? pred[1].dataSync() : [];
+    var mainArr  = settings.HAS_EXTRA ? pred[0].dataSync() : pred.dataSync();
+    var extraArr = settings.HAS_EXTRA ? pred[1].dataSync() : [];
 
     // Compute Skip scores for this specific backtest window.
-    // trainingDraws is ASC (oldest → newest), so we reverse to get DESC for computeSkipScores().
-    const skipScoresForBacktest = computeSkipScores(
-      [...trainingDraws].reverse(),
+    // trainingDraws is ASC (oldest to newest), so we reverse to get DESC for computeSkipScores().
+    var skipScoresForBacktest = computeSkipScores(
+      trainingDraws.slice().reverse(),
       settings.PICK_SIZE,
       settings.MAIN_MAX
     );
 
     // Build full blended mass for proper scoring (main)
-    const actualMainSet = new Set(actualMain);
+    var actualMainSet = new Set(actualMain);
 
-    const aiRawMain = Array.from(mainArr).map(v => {
-      const p = (typeof v === 'number' && isFinite(v)) ? v : 0;
+    var aiRawMain = Array.from(mainArr).map(function(v) {
+      var p = (typeof v === 'number' && isFinite(v)) ? v : 0;
       return Math.min(1 - SKAI_EPS, Math.max(SKAI_EPS, p));
     });
-    const aiNormMain = normalizePositive(aiRawMain);
+    var aiNormMain = normalizePositive(aiRawMain);
 
-    const skipArrMain = Array.isArray(skipScoresForBacktest)
+    var skipArrMain = Array.isArray(skipScoresForBacktest)
       ? skipScoresForBacktest
       : new Array(aiNormMain.length).fill(0);
 
-   // Mode-aware skip expert + adaptive Mixed λ (agreement-based)
-    const modeKeyBT = getSelectedSkaiMode();
+    // Mode-aware skip expert + adaptive Mixed λ (agreement-based)
+    var modeKeyBT = getSelectedSkaiMode();
 
-    const skipBetaBT = getSkaiSkipBeta(modeKeyBT);
-    const skipProbMain = buildSkipExpertProbs(skipArrMain, skipBetaBT);
+    var skipBetaBT = getSkaiSkipBeta(modeKeyBT);
+    var skipProbMain = buildSkipExpertProbs(skipArrMain, skipBetaBT);
 
-    const lambdaBT = getSkaiLambda(modeKeyBT, aiNormMain, skipProbMain);
+    var lambdaBT = getSkaiLambda(modeKeyBT, aiNormMain, skipProbMain);
 
     // PATCH 7B-3B: backtest readout (shows the λ being used for this run)
     var tBT = (typeof skaiGetStoredTemp === 'function') ? skaiGetStoredTemp(modeKeyBT) : 1.0;
     skaiUpdateBlendReadout(modeKeyBT, lambdaBT, skipBetaBT, tBT);
 
-    const probMassMainNorm = logOpinionPool(aiNormMain, skipProbMain, lambdaBT);
+    var probMassMainNorm = logOpinionPool(aiNormMain, skipProbMain, lambdaBT);
 
     // Deterministic top-20 ranking for backtest evaluation (no exploration here)
-    const mainProbs = probMassMainNorm
-      .map((p, i) => {
-        const skipScore = (Array.isArray(skipScoresForBacktest) && skipScoresForBacktest[i] != null)
+    var mainProbs = probMassMainNorm
+      .map(function(p, i) {
+        var skipScore = (Array.isArray(skipScoresForBacktest) && skipScoresForBacktest[i] != null)
           ? skipScoresForBacktest[i]
           : 0;
 
         return {
           number:    i + 1,
-          prob:      p,             // blended mass (sum-to-1)
-          baseProb:  aiNormMain[i],  // normalized AI marginal mass
+          prob:      p,
+          baseProb:  aiNormMain[i],
           skipScore: skipScore
         };
       })
-      .sort((a, b) => b.prob - a.prob)
-      .slice(0, 20);    // Picks used for evaluation (top pickSize from ranked top-20 list)
-    const mainPicks = mainProbs.slice(0, settings.PICK_SIZE).map(o => o.number);
+      .sort(function(a, b) { return b.prob - a.prob; })
+      .slice(0, 20);
+    var mainPicks = mainProbs.slice(0, settings.PICK_SIZE).map(function(o) { return o.number; });
 
     // Proper scoring updates (main)
     totalBrierMain += skaiBrierScore(probMassMainNorm, actualMainSet, settings.MAIN_MAX);
     totalLogLossMain += skaiLogLoss(probMassMainNorm, actualMainSet, settings.MAIN_MAX);
     totalExpectedMassInPicksMain += skaiExpectedMassInPicks(probMassMainNorm, mainPicks);
 
-    let mainMatch=0;
-    const predictedMain = mainProbs.map(x=>{
-      if (actualMain.includes(x.number)) { mainMatch++; return `[[span class="match"]]${x.number}[[/span]]`; }
+    var mainMatch=0;
+    var predictedMain = mainProbs.map(function(x) {
+      if (actualMain.includes(x.number)) { mainMatch++; return '[[span class="match"]]' + x.number + '[[/span]]'; }
       return x.number;
     });
     // top-extras
-    let predictedExtra = [], extraMatch=0;
+    var predictedExtra = [], extraMatch=0;
     if (settings.HAS_EXTRA) {
-      const actualExtraSet = new Set(actualExtra);
+      var actualExtraSet = new Set(actualExtra);
 
       // Build full normalized mass for extra
-      const aiRawExtra = Array.from(extraArr).map(v => {
-        const p = (typeof v === 'number' && isFinite(v)) ? v : 0;
+      var aiRawExtra = Array.from(extraArr).map(function(v) {
+        var p = (typeof v === 'number' && isFinite(v)) ? v : 0;
         return Math.min(1 - SKAI_EPS, Math.max(SKAI_EPS, p));
       });
-      const probMassExtraNorm = normalizePositive(aiRawExtra);
+      var probMassExtraNorm = normalizePositive(aiRawExtra);
 
-      const extraProbs = Array.from(extraArr)
-        .map((p,i)=>({number:i+1,prob:p}))
-        .sort((a,b)=>b.prob-a.prob)
+      var extraProbs = Array.from(extraArr)
+        .map(function(p,i) { return { number: i+1, prob: p }; })
+        .sort(function(a,b) { return b.prob-a.prob; })
         .slice(0, settings.EXTRA_SUGGESTIONS);
 
       // Picks used for evaluation (top EXTRA_COUNT)
-      const extraPicks = extraProbs.slice(0, settings.EXTRA_COUNT).map(o => o.number);
+      var extraPicks = extraProbs.slice(0, settings.EXTRA_COUNT).map(function(o) { return o.number; });
 
       // Proper scoring updates (extra)
       totalBrierExtra += skaiBrierScore(probMassExtraNorm, actualExtraSet, settings.EXTRA_MAX);
       totalLogLossExtra += skaiLogLoss(probMassExtraNorm, actualExtraSet, settings.EXTRA_MAX);
       totalExpectedMassInPicksExtra += skaiExpectedMassInPicks(probMassExtraNorm, extraPicks);
-      predictedExtra = extraProbs.map(x=>{
-        if (actualExtra.includes(x.number)) { extraMatch++; return `[[span class="match"]]${x.number}[[/span]]`; }
+      predictedExtra = extraProbs.map(function(x) {
+        if (actualExtra.includes(x.number)) { extraMatch++; return '[[span class="match"]]' + x.number + '[[/span]]'; }
         return x.number;
       });
     }
@@ -3258,16 +3249,16 @@ async function runBacktesting(sortedDrawsAsc, settings) {
     results.push({
       date:             sortedDrawsAsc[idx].draw_date,
       actualMain:       actualMain.join(', '),
-      actualExtra,
+      actualExtra:      actualExtra,
       predictedMain:    predictedMain.join(', '),
-      predictedExtra,
+      predictedExtra:   predictedExtra,
       mainMatchCount:   mainMatch,
       extraMatchCount:  extraMatch
     });
   }
 
-  // Attach a compact SKAI summary for rendering
-  const steps = results.length || 1;
+  // Attach a compact scoring summary for rendering
+  var steps = results.length || 1;
   results.skaiSummary = {
     steps: steps,
     avgBrierMain: (totalBrierMain / steps),
@@ -3287,8 +3278,8 @@ async function runBacktesting(sortedDrawsAsc, settings) {
       
       startButton.addEventListener('click', async function startAnalysis(event) {
        // Scroll the loading container into center view on start
-setTimeout(() => {
-  const loadingEl = document.getElementById('loading');
+setTimeout(function() {
+  var loadingEl = document.getElementById('loading');
   if (loadingEl && typeof loadingEl.scrollIntoView === 'function') {
     loadingEl.scrollIntoView({
       behavior: 'smooth',
@@ -3302,13 +3293,13 @@ setTimeout(() => {
         // We now rely on the global `tf` and `Chart` objects.
         loadingDiv.style.display = 'block';
         startButton.style.display = 'none';
-        const EPOCHS = parseInt(epochsInput.value);
-        const BATCH_SIZE = parseInt(batchSizeInput.value);
-        const DROPOUT_RATE = parseFloat(dropoutRateInput.value);
-        const LEARNING_RATE = parseFloat(learningRateInput.value);
-        const ACTIVATION_FUNCTION = activationFunctionInput.value;
-        const HIDDEN_LAYERS = parseInt(hiddenLayersInput.value);
-        const recencyDecay = parseFloat(document.getElementById('recencyDecay').value) || 1;
+        var EPOCHS = parseInt(epochsInput.value);
+        var BATCH_SIZE = parseInt(batchSizeInput.value);
+        var DROPOUT_RATE = parseFloat(dropoutRateInput.value);
+        var LEARNING_RATE = parseFloat(learningRateInput.value);
+        var ACTIVATION_FUNCTION = activationFunctionInput.value;
+        var HIDDEN_LAYERS = parseInt(hiddenLayersInput.value);
+        var recencyDecay = parseFloat(document.getElementById('recencyDecay').value) || 1;
         document.getElementById('saveRecencyDecay').value = recencyDecay;
 
         if (isNaN(EPOCHS) || EPOCHS <= 0) {
@@ -3354,7 +3345,7 @@ setTimeout(() => {
         activationFunctionValue.innerText = ACTIVATION_FUNCTION;
         hiddenLayersValue.innerText = HIDDEN_LAYERS;
         recencyDecayValue.innerText = recencyDecay;  
-        const latestDrawDate = latestDrawDateInput.value;
+        var latestDrawDate = latestDrawDateInput.value;
         if (!latestDrawDate) {
           alert("Please enter a valid latest draw date.");
           loadingDiv.style.display = 'none';
@@ -3362,25 +3353,25 @@ setTimeout(() => {
           return;
         }
         latestDrawDateValue.innerText = latestDrawDate;
-        const filteredDraws = draws.filter(draw => new Date(draw.draw_date) <= new Date(latestDrawDate));
+        var filteredDraws = draws.filter(function(draw) { return new Date(draw.draw_date) <= new Date(latestDrawDate); });
         // Sort ascending (OLDEST first) so we can build proper next-draw pairs and Skip features
-        filteredDraws.sort((a, b) => new Date(a.draw_date) - new Date(b.draw_date));
+        filteredDraws.sort(function(a, b) { return new Date(a.draw_date) - new Date(b.draw_date); });
         if (filteredDraws.length < 2) {
           alert("Not enough data before the selected date. Please choose a different date.");
           loadingDiv.style.display = 'none';
           startButton.style.display = 'block';
           return;
         }
-        const latestDrawData = filteredDraws[filteredDraws.length - 1];
-        const latestDraw = latestDrawData.numbers;
-        const historicalData = filteredDraws.map(draw => draw.numbers);
+        var latestDrawData = filteredDraws[filteredDraws.length - 1];
+        var latestDraw = latestDrawData.numbers;
+        var historicalData = filteredDraws.map(function(draw) { return draw.numbers; });
         // Pre-compute Skip feature series for the full historical sequence
-        const skipFeatureSeries = computeSkipFeatureSeries(historicalData, pickSize, mainNumbersMax);
+        var skipFeatureSeries = computeSkipFeatureSeries(historicalData, pickSize, mainNumbersMax);
         startTime = Date.now();
 
         epochStartTime = Date.now();
-        let funMessageIndex = 0;
-        const funMessageTimer = setInterval(() => {
+        var funMessageIndex = 0;
+        var funMessageTimer = setInterval(function() {
           funMessageIndex = (funMessageIndex + 1) % funMessages.length;
           funMessageDiv.innerText = funMessages[funMessageIndex];
         }, funMessageInterval);
@@ -3392,36 +3383,36 @@ setTimeout(() => {
           console.log('Backend:', tf.getBackend());
           progressMessage.innerText = messages[0];
     // normalize and build X/Y (with Skip features)
-        const normalizedHistoricalData = normalizeData(historicalData);
-        const xs = [];
-        const ys_main = [];
-        const ys_extra = [];
+        var normalizedHistoricalData = normalizeData(historicalData);
+        var xs = [];
+        var ys_main = [];
+        var ys_extra = [];
 
         // PATCH: Medium recency weighting without sampleWeight (TFJS build limitation)
         // Strategy: replicate newest 25% of training pairs 3× (older 75% stay 1×)
-        const totalPairs   = historicalData.length - 1;
-        const recentStart  = Math.floor(totalPairs * 0.75); // newest 25%
+        var totalPairs   = historicalData.length - 1;
+        var recentStart  = Math.floor(totalPairs * 0.75); // newest 25%
 
         for (let i = 0; i < totalPairs; i++) {
-          const baseInput    = normalizedHistoricalData[i];
-          const skipFeatures = skipFeatureSeries[i];
-          const inputVector  = baseInput.concat(skipFeatures);
+          var baseInput    = normalizedHistoricalData[i];
+          var skipFeatures = skipFeatureSeries[i];
+          var inputVector  = baseInput.concat(skipFeatures);
 
-          const nextDraw = historicalData[i + 1];
+          var nextDraw = historicalData[i + 1];
 
           // Y: main multi-hot
-          const mainNumbers = nextDraw.slice(0, pickSize);
-          const mainNumbersVector = new Array(mainNumbersMax).fill(0);
-          mainNumbers.forEach(num => {
+          var mainNumbers = nextDraw.slice(0, pickSize);
+          var mainNumbersVector = new Array(mainNumbersMax).fill(0);
+          mainNumbers.forEach(function(num) {
             if (num >= 1 && num <= mainNumbersMax) {
               mainNumbersVector[num - 1] = 1;
             }
           });
 
           // Y: extra one-hot (if present)
-          let extraVector = null;
+          var extraVector = null;
           if (hasExtraBall) {
-            const extraNumber = nextDraw[pickSize];
+            var extraNumber = nextDraw[pickSize];
             extraVector = new Array(extraBallMax).fill(0);
             if (extraNumber >= 1 && extraNumber <= extraBallMax) {
               extraVector[extraNumber - 1] = 1;
@@ -3429,9 +3420,9 @@ setTimeout(() => {
           }
 
           // Replication factor (Medium recency)
-          const reps = (i >= recentStart) ? 3 : 1;
+          var reps = (i >= recentStart) ? 3 : 1;
 
-          for (let r = 0; r < reps; r++) {
+          for (var r = 0; r < reps; r++) {
             xs.push(inputVector);
             ys_main.push(mainNumbersVector);
             if (hasExtraBall) {
@@ -3445,33 +3436,33 @@ setTimeout(() => {
 
 
 // ── tensors ──
-        const xsTensor     = tf.tensor2d(xs);
-        const ysMainTensor = tf.tensor2d(ys_main);
+        var xsTensor     = tf.tensor2d(xs);
+        var ysMainTensor = tf.tensor2d(ys_main);
 
-          let ysExtraTensor;
+          var ysExtraTensor;
           if (hasExtraBall) {
             ysExtraTensor = tf.tensor2d(ys_extra);
           }
-          const inputShape = xs[0].length;
-          const input = tf.input({ shape: [inputShape] });
-          let x = tf.layers.dense({ units: 128, activation: ACTIVATION_FUNCTION }).apply(input);
+          var inputShape = xs[0].length;
+          var input = tf.input({ shape: [inputShape] });
+          var x = tf.layers.dense({ units: 128, activation: ACTIVATION_FUNCTION }).apply(input);
           x = tf.layers.dropout({ rate: DROPOUT_RATE }).apply(x);
-          for (let i = 0; i < HIDDEN_LAYERS; i++) {
+          for (var i = 0; i < HIDDEN_LAYERS; i++) {
             x = tf.layers.dense({ units: 64, activation: ACTIVATION_FUNCTION }).apply(x);
             x = tf.layers.dropout({ rate: DROPOUT_RATE }).apply(x);
           }
-          const mainNumbersOutput = tf.layers.dense({ units: mainNumbersMax, activation: 'sigmoid', name: 'main_numbers_output' }).apply(x);
-          let outputs, model;
+          var mainNumbersOutput = tf.layers.dense({ units: mainNumbersMax, activation: 'sigmoid', name: 'main_numbers_output' }).apply(x);
+          var outputs, model;
           if (hasExtraBall) {
-            const extraOutput = tf.layers.dense({ units: extraBallMax, activation: 'sigmoid', name: 'extra_output' }).apply(x);
+            var extraOutput = tf.layers.dense({ units: extraBallMax, activation: 'sigmoid', name: 'extra_output' }).apply(x);
             outputs = [mainNumbersOutput, extraOutput];
             model = tf.model({ inputs: input, outputs: outputs });
           } else {
             outputs = mainNumbersOutput;
             model = tf.model({ inputs: input, outputs: outputs });
           }
-          const optimizer = tf.train.adam(LEARNING_RATE);
-          let loss, metrics;
+          var optimizer = tf.train.adam(LEARNING_RATE);
+          var loss, metrics;
           if (hasExtraBall) {
             loss = ['binaryCrossentropy', 'binaryCrossentropy'];
             metrics = ['accuracy'];
@@ -3484,7 +3475,7 @@ setTimeout(() => {
             loss: loss,
             metrics: metrics
           });
-          let yTrain;
+          var yTrain;
           if (hasExtraBall) {
             yTrain = {
               main_numbers_output: ysMainTensor,
@@ -3493,7 +3484,7 @@ setTimeout(() => {
           } else {
             yTrain = ysMainTensor;
           }
-		const fitArgs = {
+		var fitArgs = {
             epochs: EPOCHS,
             batchSize: BATCH_SIZE,
             shuffle: false,
@@ -3501,31 +3492,33 @@ setTimeout(() => {
             // PATCH: sampleWeight disabled (not supported in this TFJS build)
             // Recency weighting is approximated via training-pair replication (newest 25% repeated 3×).
             callbacks: {
-              onEpochBegin: (epoch, logs) => {
+              onEpochBegin: function(epoch, logs) {
                 epochStartTime = Date.now();
                 progressMessage.innerText = messages[3];
               },
-              onEpochEnd: (epoch, logs) => {
-                let epochEndTime = Date.now();
-                let epochDuration = (epochEndTime - epochStartTime) / 1000;
+              onEpochEnd: function(epoch, logs) {
+                var epochEndTime = Date.now();
+                var epochDuration = (epochEndTime - epochStartTime) / 1000;
                 if (epoch === 0) {
                   smoothedTimePerEpoch = epochDuration;
                 } else {
                   smoothedTimePerEpoch = (smoothingFactor * epochDuration) + ((1 - smoothingFactor) * smoothedTimePerEpoch);
                 }
-                let epochsRemaining = EPOCHS - (epoch + 1);
-                let estimatedRemainingTime = epochsRemaining * smoothedTimePerEpoch;
+                var epochsRemaining = EPOCHS - (epoch + 1);
+                var estimatedRemainingTime = epochsRemaining * smoothedTimePerEpoch;
                 if (estimatedRemainingTime > 0) {
-                  let minutes = Math.floor(estimatedRemainingTime / 60);
-                  let seconds = Math.floor(estimatedRemainingTime % 60);
-                  countdownDiv.innerHTML = `Estimated time left: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                  var minutes = Math.floor(estimatedRemainingTime / 60);
+                  var seconds = Math.floor(estimatedRemainingTime % 60);
+                  var mm = (minutes < 10 ? '0' : '') + minutes;
+                  var ss = (seconds < 10 ? '0' : '') + seconds;
+                  countdownDiv.innerHTML = 'Estimated time left: ' + mm + ':' + ss;
                 } else {
                   countdownDiv.innerHTML = "Main analysis completed! Now running backtesting...";
                 }
-                let percentage = Math.round(((epoch + 1) / EPOCHS) * 100);
+                var percentage = Math.round(((epoch + 1) / EPOCHS) * 100);
                 progressBar.style.width = percentage + '%';
                 progressBar.textContent = percentage + '%';
-                let msgIndex = Math.floor((percentage / 100) * messages.length);
+                var msgIndex = Math.floor((percentage / 100) * messages.length);
                 if (msgIndex >= messages.length) {
                   msgIndex = messages.length - 1;
                 }
@@ -3541,16 +3534,16 @@ setTimeout(() => {
           progressMessage.innerText = messages[6];
 
           // Build prediction input: normalized latest draw + its Skip feature vector
-          const latestIndex          = historicalData.length - 1;
-          const normalizedLatestDraw = normalizeData([latestDraw])[0];
-          const latestSkipFeatures   = skipFeatureSeries[latestIndex];
-          const latestInputVector    = normalizedLatestDraw.concat(latestSkipFeatures);
+          var latestIndex          = historicalData.length - 1;
+          var normalizedLatestDraw = normalizeData([latestDraw])[0];
+          var latestSkipFeatures   = skipFeatureSeries[latestIndex];
+          var latestInputVector    = normalizedLatestDraw.concat(latestSkipFeatures);
 
           // Use the latest Skip feature vector as our per-number Skip scores for bias
-          const skipScores = latestSkipFeatures;
+          var skipScores = latestSkipFeatures;
 
-          const prediction = model.predict(tf.tensor2d([latestInputVector]));
-          let mainNumbersPrediction, extraPrediction;
+          var prediction = model.predict(tf.tensor2d([latestInputVector]));
+          var mainNumbersPrediction, extraPrediction;
           if (hasExtraBall) {
             mainNumbersPrediction = prediction[0].dataSync();
             extraPrediction = prediction[1].dataSync();
@@ -3561,31 +3554,31 @@ setTimeout(() => {
           // 1) normalize AI marginals into a mass function
           // 2) convert skipScores into a skip-expert distribution
           // 3) combine via log-opinion pool (geometric mixture)
-          const modeKey = getSelectedSkaiMode();
+          var modeKey = getSelectedSkaiMode();
 
           // 1) AI marginals → normalized mass
-          const aiRaw = Array.from(mainNumbersPrediction).map(v => {
-            const p = (typeof v === 'number' && isFinite(v)) ? v : 0;
+          var aiRaw = Array.from(mainNumbersPrediction).map(function(v) {
+            var p = (typeof v === 'number' && isFinite(v)) ? v : 0;
             return Math.min(1 - SKAI_EPS, Math.max(SKAI_EPS, p));
           });
-          const aiNorm = normalizePositive(aiRaw);
+          var aiNorm = normalizePositive(aiRaw);
 
           // 2) Skip scores → skip-expert distribution
-          const skipArr = Array.isArray(skipScores)
+          var skipArr = Array.isArray(skipScores)
             ? skipScores
             : new Array(aiNorm.length).fill(0);
 
-          const skipBetaLocal = getSkaiSkipBeta(modeKey);
-          const skipProbLocal = buildSkipExpertProbs(skipArr, skipBetaLocal);
+          var skipBetaLocal = getSkaiSkipBeta(modeKey);
+          var skipProbLocal = buildSkipExpertProbs(skipArr, skipBetaLocal);
 
           // 3) Blend weight λ (adaptive in Mixed)
-          const lambdaLocal = getSkaiLambda(modeKey, aiNorm, skipProbLocal);
+          var lambdaLocal = getSkaiLambda(modeKey, aiNorm, skipProbLocal);
 
           // Live blend readout (AI λ vs Skip 1−λ, plus β and T)
           var tLive = (typeof skaiGetStoredTemp === 'function') ? skaiGetStoredTemp(modeKey) : 1.0;
           skaiUpdateBlendReadout(modeKey, lambdaLocal, skipBetaLocal, tLive);
 
-          const finalProbNorm = logOpinionPool(aiNorm, skipProbLocal, lambdaLocal);
+          var finalProbNorm = logOpinionPool(aiNorm, skipProbLocal, lambdaLocal);
 
           // PATCH: removed duplicate (older) SKAI blend block to prevent redeclarations
 
@@ -3595,18 +3588,18 @@ setTimeout(() => {
           skaiUpdateBlendReadout(modeKey, lambdaLocal, skipBetaLocal, tLive);
 
           // PATCH: removed duplicate finalProbNorm declaration; reuse the earlier finalProbNorm
-          const mainNumbersProbabilities = finalProbNorm.map((p, i) => {
-            const number    = i + 1;
-            const skipScore = (Array.isArray(skipScores) && skipScores[i] != null) ? skipScores[i] : 0;
+          var mainNumbersProbabilities = finalProbNorm.map(function(p, i) {
+            var number    = i + 1;
+            var skipScore = (Array.isArray(skipScores) && skipScores[i] != null) ? skipScores[i] : 0;
 
             return {
-              number,
-              probability:      p,          // math-correct blended mass (sum-to-1)
-              baseProbability:  aiNorm[i],   // normalized AI marginal mass
-              skipScore:        skipScore
+              number:          number,
+              probability:     p,
+              baseProbability: aiNorm[i],
+              skipScore:       skipScore
             };
           });
-          mainNumbersProbabilities.sort((a, b) => b.probability - a.probability);
+          mainNumbersProbabilities.sort(function(a, b) { return b.probability - a.probability; });
           // Populate batch-runner capture globals
           try {
             window.skaiSaveMainOrdered = mainNumbersProbabilities.slice(0, 20).map(function (item) { return item.number; });
@@ -3614,92 +3607,74 @@ setTimeout(() => {
           } catch (_) {}
           try { window.dispatchEvent(new Event('skai:score:done')); } catch (_) {}
           // Final selection: exploit + controlled exploration (Explorative/Mixed), strict top-k otherwise
-          const pickedNumbers = skaiSelectPicksFromMass(finalProbNorm, pickSize, modeKey);
+          var pickedNumbers = skaiSelectPicksFromMass(finalProbNorm, pickSize, modeKey);
 
           // Map pickedNumbers back to objects (for display wiring that expects {number,...})
-          const pickedSet = new Set(pickedNumbers);
-          const predictedMainNumbers = mainNumbersProbabilities
-            .filter(item => pickedSet.has(item.number))
-            .sort((a, b) => a.number - b.number);
-          let numbersHTML = '';
+          var pickedSet = new Set(pickedNumbers);
+          var predictedMainNumbers = mainNumbersProbabilities
+            .filter(function(item) { return pickedSet.has(item.number); })
+            .sort(function(a, b) { return a.number - b.number; });
+          var numbersHTML = '';
       
           // Add main numbers
-          predictedMainNumbers.slice(0, pickSize).forEach((item) => {
-              numbersHTML += `[[span class="number-ball"]]${item.number}[[/span]]\n`;
+          predictedMainNumbers.slice(0, pickSize).forEach(function(item) {
+              numbersHTML += '[[span class="number-ball"]]' + item.number + '[[/span]]\n';
           });
       
           // Add extra ball if available
           if (hasExtraBall && predictedMainNumbers.length > pickSize) {
-              let extraBall = predictedMainNumbers[pickSize]; // The extra ball
-              numbersHTML += `[[span class="number-ball powerball"]]${extraBall.number}[[/span]]\n`;
+              var extraBall = predictedMainNumbers[pickSize]; // The extra ball
+              numbersHTML += '[[span class="number-ball powerball"]]' + extraBall.number + '[[/span]]\n';
           }
       
           predictedNumbersDiv.style.display = "none";
       
-          let breakdownHTML = `
-            [[h3]]Top 20 Main Numbers Breakdown[[/h3]]
-            [[table]]
-              [[thead]]
-                [[tr]]
-                  [[th]]Number[[/th]]
-                  [[th]]Probability (%)[[/th]]
-                [[/tr]]
-              [[/thead]]
-              [[tbody]]
-          `;
-          mainNumbersProbabilities.slice(0, 20).forEach(item => {
-            const probabilityPercentage = (item.probability * 100).toFixed(2);
-            breakdownHTML += `
-              [[tr]]
-                [[td]]${item.number}[[/td]]
-                [[td]]${probabilityPercentage}%[[/td]]
-              [[/tr]]
-            `;
+          var breakdownHTML =
+            '[[h3]]Top 20 Main Numbers Breakdown[[/h3]]' +
+            '[[table]][[thead]][[tr]]' +
+            '[[th]]Number[[/th]]' +
+            '[[th]]Probability (%)[[/th]]' +
+            '[[/tr]][[/thead]][[tbody]]';
+          mainNumbersProbabilities.slice(0, 20).forEach(function(item) {
+            var probabilityPercentage = (item.probability * 100).toFixed(2);
+            breakdownHTML +=
+              '[[tr]]' +
+              '[[td]]' + item.number + '[[/td]]' +
+              '[[td]]' + probabilityPercentage + '%[[/td]]' +
+              '[[/tr]]';
           });
-          breakdownHTML += `
-              [[/tbody]]
-            [[/table]]
-          `;
+          breakdownHTML += '[[/tbody]][[/table]]';
           if (hasExtraBall) {
-            const extraProbabilities = Array.from(extraPrediction)
-              .map((prob, index) => ({ number: index + 1, probability: prob }));
-            extraProbabilities.sort((a, b) => b.probability - a.probability);
-            breakdownHTML += `
-              [[h3]]Top 5 Extra Numbers Breakdown[[/h3]]
-              [[table]]
-                [[thead]]
-                  [[tr]]
-                    [[th]]Number[[/th]]
-                    [[th]]Probability (%)[[/th]]
-                  [[/tr]]
-                [[/thead]]
-                [[tbody]]
-            `;
-            extraProbabilities.slice(0, 5).forEach(item => {
-              const probabilityPercentage = (item.probability * 100).toFixed(2);
-              breakdownHTML += `
-                [[tr]]
-                  [[td]]${item.number}[[/td]]
-                  [[td]]${probabilityPercentage}%[[/td]]
-                [[/tr]]
-              `;
+            var extraProbabilities = Array.from(extraPrediction)
+              .map(function(prob, index) { return { number: index + 1, probability: prob }; });
+            extraProbabilities.sort(function(a, b) { return b.probability - a.probability; });
+            breakdownHTML +=
+              '[[h3]]Top 5 Extra Numbers Breakdown[[/h3]]' +
+              '[[table]][[thead]][[tr]]' +
+              '[[th]]Number[[/th]]' +
+              '[[th]]Probability (%)[[/th]]' +
+              '[[/tr]][[/thead]][[tbody]]';
+            extraProbabilities.slice(0, 5).forEach(function(item) {
+              var probabilityPercentage = (item.probability * 100).toFixed(2);
+              breakdownHTML +=
+                '[[tr]]' +
+                '[[td]]' + item.number + '[[/td]]' +
+                '[[td]]' + probabilityPercentage + '%[[/td]]' +
+                '[[/tr]]';
             });
-            breakdownHTML += `
-                [[/tbody]]
-              [[/table]]
-            `;
+            breakdownHTML += '[[/tbody]][[/table]]';
           }
           numberBreakdownTableDiv.innerHTML = breakdownHTML;
           
           progressMessage.innerText = messages[8];
-          const predictionDate = new Date();
-          const predictionDateString = predictionDate.toLocaleString();
+          var predictionDate = new Date();
+          var predictionDateString = predictionDate.toLocaleString();
           predictionDateValue.innerText = predictionDateString;
  
    
         
         // (1) capture your PHP lotteryName into JS input
-const lotteryName = <?php echo json_encode($lotteryName); ?>;
+var lotteryName = <?php echo json_encode($lotteryName); ?>;
 
 // (2) update the hidden generated_at if you haven’t already
 document.getElementById('saveGeneratedAt').value =
@@ -3707,24 +3682,24 @@ document.getElementById('saveGeneratedAt').value =
 
 // (3) now push the same timestamp into your label field
 document.getElementById('saveLabel').value =
-  `${lotteryName} Prediction – ${predictionDateString}`;
+  lotteryName + ' Prediction – ' + predictionDateString;
 
         
         
         // — format to YYYY‑MM‑DD HH:MM:SS for our DB —
 function formatDateForDB(d) {
-  const p = n => String(n).padStart(2,'0');
-  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ` +
-         `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+  function p(n) { return (n < 10 ? '0' : '') + n; }
+  return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' +
+         p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
 }
 
       // populate hidden field with DB-formatted timestamp
-        const now = new Date();
-        const dbTimestamp = formatDateForDB(now);
+        var now = new Date();
+        var dbTimestamp = formatDateForDB(now);
         document.getElementById('saveGeneratedAt').value = dbTimestamp;
         // label can still show human-friendly time
         document.getElementById('saveLabel').value =
-          `${lotteryName} Prediction – ${now.toLocaleString()}`;
+          lotteryName + ' Prediction – ' + now.toLocaleString();
 
 
 // Save AI analysis specs to hidden fields
@@ -3738,20 +3713,20 @@ document.getElementById('saveHiddenLayers').value        = HIDDEN_LAYERS;
  
            // After generating the predictions, populate the hidden fields in the save form
           // For MAIN numbers, use all predicted main numbers instead of just the first "pickSize".
-          const mainPredictionNumbers = mainNumbersProbabilities
+          var mainPredictionNumbers = mainNumbersProbabilities
   .slice(0, 20)
-  .map(item => item.number)
+  .map(function(item) { return item.number; })
   .join(',');
 
       
           // For the EXTRA ball predictions, if applicable, compute the entire sorted list
-          let extraPredictionNumbers = "";
+          var extraPredictionNumbers = "";
           if (hasExtraBall) {
-            const extraProbabilities = Array.from(extraPrediction).map((prob, index) => ({ number: index + 1, probability: prob }));
-            extraProbabilities.sort((a, b) => b.probability - a.probability);
+            var extraProbabilities = Array.from(extraPrediction).map(function(prob, index) { return { number: index + 1, probability: prob }; });
+            extraProbabilities.sort(function(a, b) { return b.probability - a.probability; });
            extraPredictionNumbers = extraProbabilities
   .slice(0, 5)
-  .map(item => item.number)
+  .map(function(item) { return item.number; })
   .join(',');
           }
       
@@ -3772,28 +3747,28 @@ document.getElementById('saveHiddenLayers').value        = HIDDEN_LAYERS;
             backtestProgressContainer.style.display = 'block';
             countdownDiv.innerHTML = "Running backtesting on previous draws...";
       
-            const sortedDrawsAsc = [...filteredDraws].sort((a, b) => new Date(a.draw_date) - new Date(b.draw_date));
- const settings = {
-  EPOCHS,
-  BATCH_SIZE,
-  DROPOUT_RATE,
-  LEARNING_RATE,
-  ACTIVATION_FUNCTION,
-  HIDDEN_LAYERS,
+            var sortedDrawsAsc = filteredDraws.slice().sort(function(a, b) { return new Date(a.draw_date) - new Date(b.draw_date); });
+ var settings = {
+  EPOCHS: EPOCHS,
+  BATCH_SIZE: BATCH_SIZE,
+  DROPOUT_RATE: DROPOUT_RATE,
+  LEARNING_RATE: LEARNING_RATE,
+  ACTIVATION_FUNCTION: ACTIVATION_FUNCTION,
+  HIDDEN_LAYERS: HIDDEN_LAYERS,
 
   // new entries so trainModelForBacktest() and runBacktesting() see them:
-  RECENCY_DECAY:   recencyDecay,       // from your earlier const
-  PICK_SIZE:       pickSize,           // global var you defined above
-  MAIN_MAX:        mainNumbersMax,     // global var you defined above
-  EXTRA_COUNT:     numExtraBalls,      // global var you defined above
-  EXTRA_MAX:       extraBallMax,       // global var you defined above
-  HAS_EXTRA:       hasExtraBall,       // global var you defined above
+  RECENCY_DECAY:   recencyDecay,
+  PICK_SIZE:       pickSize,
+  MAIN_MAX:        mainNumbersMax,
+  EXTRA_COUNT:     numExtraBalls,
+  EXTRA_MAX:       extraBallMax,
+  HAS_EXTRA:       hasExtraBall,
   EXTRA_SUGGESTIONS: topExtraSuggestions
 };
 
-const backtestResults = await runBacktesting(sortedDrawsAsc, settings);
+var backtestResults = await runBacktesting(sortedDrawsAsc, settings);
 
-            const backtestHTML = renderBacktestResults(backtestResults);
+            var backtestHTML = renderBacktestResults(backtestResults);
             backtestResultsDiv.innerHTML = backtestHTML;
             backtestResultsDiv.style.display = 'block';
             
@@ -3806,7 +3781,7 @@ const backtestResults = await runBacktesting(sortedDrawsAsc, settings);
       
           }
           // END BACKTESTING STEP
-          setTimeout(() => {
+          setTimeout(function() {
             loadingDiv.style.display = 'none';
             predictionDiv.style.display = 'block';
             numberBreakdownDiv.style.display = 'block';
@@ -3824,46 +3799,50 @@ const backtestResults = await runBacktesting(sortedDrawsAsc, settings);
   <!-- Deferred Chart & TFJS initialization (Block C) -->
 [[script defer]]
 document.addEventListener('DOMContentLoaded', function () {
-  const ctx1 = document.getElementById('coverageChart')?.getContext('2d');
-  const ctx2 = document.getElementById('ticketsChart')?.getContext('2d');
+  var canvas1 = document.getElementById('coverageChart');
+  var canvas2 = document.getElementById('ticketsChart');
+  var ctx1 = canvas1 ? canvas1.getContext('2d') : null;
+  var ctx2 = canvas2 ? canvas2.getContext('2d') : null;
 
   if (!ctx1 || !ctx2 || typeof Chart === 'undefined') {
     console.error("Chart.js not ready or canvas not found.");
     return;
   }
 
-  const rootStyles = getComputedStyle(document.documentElement);
-  let primaryBlue = rootStyles.getPropertyValue('--primary-blue').trim();
+  var rootStyles = getComputedStyle(document.documentElement);
+  var primaryBlue = rootStyles.getPropertyValue('--primary-blue').trim();
   if (!primaryBlue) {
     primaryBlue = rootStyles.getPropertyValue('--skai-blue').trim() || '#1C66FF';
   }
 
-  const commonOptions = (label) => ({
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false }
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: { display: true, text: label, color: '#333' },
-        ticks: {
-          color: '#333',
-          callback: function (val) {
-            if (label.includes('Coverage')) return val + '%';
-            if (val >= 1000) return (val / 1000).toFixed(1) + 'k';
-            return val;
-          }
-        },
-        grid: { color: '#ccc' }
+  function commonOptions(label) {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
       },
-      x: {
-        ticks: { color: '#333' },
-        grid: { display: false }
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: label, color: '#333' },
+          ticks: {
+            color: '#333',
+            callback: function (val) {
+              if (label.indexOf('Coverage') >= 0) return val + '%';
+              if (val >= 1000) return (val / 1000).toFixed(1) + 'k';
+              return val;
+            }
+          },
+          grid: { color: '#ccc' }
+        },
+        x: {
+          ticks: { color: '#333' },
+          grid: { display: false }
+        }
       }
-    }
-  });
+    };
+  }
 
   new Chart(ctx1, {
     type: 'bar',
