@@ -3290,7 +3290,7 @@ setTimeout(function() {
  
         event.preventDefault();
         // TensorFlow.js and Chart.js are loaded via <script> tags in the head.
-        // We now rely on the global `tf` and `Chart` objects.
+        // We now rely on the global 'tf' and 'Chart' objects.
         loadingDiv.style.display = 'block';
         startButton.style.display = 'none';
         var EPOCHS = parseInt(epochsInput.value);
@@ -3393,7 +3393,7 @@ setTimeout(function() {
         var totalPairs   = historicalData.length - 1;
         var recentStart  = Math.floor(totalPairs * 0.75); // newest 25%
 
-        for (let i = 0; i < totalPairs; i++) {
+        for (var i = 0; i < totalPairs; i++) {
           var baseInput    = normalizedHistoricalData[i];
           var skipFeatures = skipFeatureSeries[i];
           var inputVector  = baseInput.concat(skipFeatures);
@@ -3688,9 +3688,9 @@ document.getElementById('saveLabel').value =
         
         // — format to YYYY‑MM‑DD HH:MM:SS for our DB —
 function formatDateForDB(d) {
-  function p(n) { return (n < 10 ? '0' : '') + n; }
-  return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' +
-         p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()) + ' ' +
+         pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
 }
 
       // populate hidden field with DB-formatted timestamp
@@ -3829,7 +3829,7 @@ document.addEventListener('DOMContentLoaded', function () {
           ticks: {
             color: '#333',
             callback: function (val) {
-              if (label.indexOf('Coverage') >= 0) return val + '%';
+              if (label.indexOf('Coverage') !== -1) return val + '%';
               if (val >= 1000) return (val / 1000).toFixed(1) + 'k';
               return val;
             }
