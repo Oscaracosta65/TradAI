@@ -1064,162 +1064,162 @@ button.button-reset:hover{
       [[/div]]
 
 <!-- SKAI: Run 9-Combo Default Batch button -->
-<div style="margin:10px 0 4px 0;">
-  <button type="button" id="skai-batch-launch" class="btn-outline"
-    style="display:inline-block;font-size:0.9rem;padding:7px 14px;">
+[[div style="margin:10px 0 4px 0;"]]
+  [[button type="button" id="skai-batch-launch" class="btn-outline"
+    style="display:inline-block;font-size:0.9rem;padding:7px 14px;"]]
     Run 9-Combo Default Batch
-  </button>
-  <div style="font-size:0.8rem;color:#6b7280;margin-top:3px;">
+  [[/button]]
+  [[div style="font-size:0.8rem;color:#6b7280;margin-top:3px;"]]
     Runs all nine default combinations. This can take a long time.
-  </div>
-</div>
+  [[/div]]
+[[/div]]
 
 <!-- SKAI: Batch confirmation modal -->
-<div id="skai-batch-modal"
-  style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9990;align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:14px;padding:28px 24px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.22);margin:auto;margin-top:10vh;">
-    <h3 style="margin:0 0 12px 0;font-size:1.1rem;">Run all 9 combinations?</h3>
-    <p style="font-size:0.9rem;line-height:1.55;color:#374151;margin:0 0 10px 0;">
-      SKAI will run <strong>9 separate projections</strong> back to back.
+[[div id="skai-batch-modal"
+  style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9990;align-items:center;justify-content:center;"]]
+  [[div style="background:#fff;border-radius:14px;padding:28px 24px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.22);margin:auto;margin-top:10vh;"]]
+    [[h3 style="margin:0 0 12px 0;font-size:1.1rem;"]]Run all 9 combinations?[[/h3]]
+    [[p style="font-size:0.9rem;line-height:1.55;color:#374151;margin:0 0 10px 0;"]]
+      SKAI will run [[strong]]9 separate projections[[/strong]] back to back.
       Each one covers a different combination of risk profile and strategy.
-    </p>
-    <ul style="font-size:0.88rem;color:#374151;margin:0 0 10px 0;padding-left:18px;line-height:1.7;">
-      <li><strong>Risk profiles:</strong> Balanced, Explorative, Conservative</li>
-      <li><strong>Strategies:</strong> AI-Forward, Balanced Mix, Skip Pattern Boost</li>
-    </ul>
-    <p style="font-size:0.88rem;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin:0 0 10px 0;">
+    [[/p]]
+    [[ul style="font-size:0.88rem;color:#374151;margin:0 0 10px 0;padding-left:18px;line-height:1.7;"]]
+      [[li]][[strong]]Risk profiles:[[/strong]] Balanced, Explorative, Conservative[[/li]]
+      [[li]][[strong]]Strategies:[[/strong]] AI-Forward, Balanced Mix, Skip Pattern Boost[[/li]]
+    [[/ul]]
+    [[p style="font-size:0.88rem;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin:0 0 10px 0;"]]
       This may take several minutes. You can stop the batch at any time using the Stop button.
-    </p>
-    <p style="font-size:0.88rem;color:#1e3a5f;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin:0 0 16px 0;">
-      <strong>About saving:</strong> Do not click Save while the batch is running.
-      A <strong>Save All 9</strong> button will appear automatically once every run is complete.
+    [[/p]]
+    [[p style="font-size:0.88rem;color:#1e3a5f;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin:0 0 16px 0;"]]
+      [[strong]]About saving:[[/strong]] Do not click Save while the batch is running.
+      A [[strong]]Save All 9[[/strong]] button will appear automatically once every run is complete.
       You can also save individual runs or stop early and save whatever has finished.
-    </p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button type="button" id="skai-batch-confirm" class="btn" style="flex:1;min-width:120px;">
+    [[/p]]
+    [[div style="display:flex;gap:10px;flex-wrap:wrap;"]]
+      [[button type="button" id="skai-batch-confirm" class="btn" style="flex:1;min-width:120px;"]]
         Start Batch
-      </button>
-      <button type="button" id="skai-batch-cancel" class="btn-outline" style="flex:1;min-width:100px;">
+      [[/button]]
+      [[button type="button" id="skai-batch-cancel" class="btn-outline" style="flex:1;min-width:100px;"]]
         Cancel
-      </button>
-    </div>
-  </div>
-</div>
+      [[/button]]
+    [[/div]]
+  [[/div]]
+[[/div]]
 
 <!-- SKAI: Batch progress panel -->
-<div id="skai-batch-panel" style="display:none;margin:14px 0 0 0;border:1px solid #e5e7eb;border-radius:12px;padding:16px;background:#f9fafb;">
-  <div style="font-weight:700;font-size:0.98rem;margin-bottom:8px;">Batch Progress</div>
-  <div id="skai-batch-progress-text" style="font-size:0.9rem;color:#374151;margin-bottom:4px;">
+[[div id="skai-batch-panel" style="display:none;margin:14px 0 0 0;border:1px solid #e5e7eb;border-radius:12px;padding:16px;background:#f9fafb;"]]
+  [[div style="font-weight:700;font-size:0.98rem;margin-bottom:8px;"]]Batch Progress[[/div]]
+  [[div id="skai-batch-progress-text" style="font-size:0.9rem;color:#374151;margin-bottom:4px;"]]
     Completed 0 of 9
-  </div>
-  <div id="skai-batch-current-label" style="font-size:0.85rem;color:#6b7280;margin-bottom:10px;">
+  [[/div]]
+  [[div id="skai-batch-current-label" style="font-size:0.85rem;color:#6b7280;margin-bottom:10px;"]]
     Ready
-  </div>
-  <div id="skai-batch-save-note" style="font-size:0.83rem;color:#1e3a5f;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin-bottom:12px;">
-    <strong>What to do while it runs:</strong> Just wait. You do not need to click Save during the batch.
-    When all runs are finished, a <strong>Save All 9</strong> button will appear right below this grid.
+  [[/div]]
+  [[div id="skai-batch-save-note" style="font-size:0.83rem;color:#1e3a5f;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin-bottom:12px;"]]
+    [[strong]]What to do while it runs:[[/strong]] Just wait. You do not need to click Save during the batch.
+    When all runs are finished, a [[strong]]Save All 9[[/strong]] button will appear right below this grid.
     You can also stop early and save whichever runs have already completed.
-  </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
-    <button type="button" id="skai-batch-stop" class="btn-outline"
-      style="font-size:0.85rem;padding:5px 12px;color:#dc2626;border-color:#dc2626;">
+  [[/div]]
+  [[div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;"]]
+    [[button type="button" id="skai-batch-stop" class="btn-outline"
+      style="font-size:0.85rem;padding:5px 12px;color:#dc2626;border-color:#dc2626;"]]
       Stop Batch
-    </button>
-    <button type="button" id="skai-batch-clear" class="btn-outline"
-      style="font-size:0.85rem;padding:5px 12px;">
+    [[/button]]
+    [[button type="button" id="skai-batch-clear" class="btn-outline"
+      style="font-size:0.85rem;padding:5px 12px;"]]
       Clear Batch
-    </button>
-  </div>
+    [[/button]]
+  [[/div]]
 
   <!-- 3x3 results grid -->
-  <div style="overflow-x:auto;">
-    <table id="skai-batch-grid" style="width:100%;border-collapse:collapse;font-size:0.82rem;">
-      <thead>
-        <tr>
-          <th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:left;">Profile / Strategy</th>
-          <th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;">AI-Forward</th>
-          <th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;">Balanced Mix</th>
-          <th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;">Skip Pattern Boost</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;">Balanced</td>
-          <td id="skai-cell-balanced-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="ai">Pending</td>
-          <td id="skai-cell-balanced-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="hybrid">Pending</td>
-          <td id="skai-cell-balanced-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="skip">Pending</td>
-        </tr>
-        <tr>
-          <td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;">Explorative</td>
-          <td id="skai-cell-explorative-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="ai">Pending</td>
-          <td id="skai-cell-explorative-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="hybrid">Pending</td>
-          <td id="skai-cell-explorative-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="skip">Pending</td>
-        </tr>
-        <tr>
-          <td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;">Conservative</td>
-          <td id="skai-cell-conservative-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="ai">Pending</td>
-          <td id="skai-cell-conservative-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="hybrid">Pending</td>
-          <td id="skai-cell-conservative-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="skip">Pending</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  [[div style="overflow-x:auto;"]]
+    [[table id="skai-batch-grid" style="width:100%;border-collapse:collapse;font-size:0.82rem;"]]
+      [[thead]]
+        [[tr]]
+          [[th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:left;"]]Profile / Strategy[[/th]]
+          [[th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;"]]AI-Forward[[/th]]
+          [[th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;"]]Balanced Mix[[/th]]
+          [[th style="padding:6px 8px;background:#f3f4f6;border:1px solid #e5e7eb;text-align:center;"]]Skip Pattern Boost[[/th]]
+        [[/tr]]
+      [[/thead]]
+      [[tbody]]
+        [[tr]]
+          [[td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;"]]Balanced[[/td]]
+          [[td id="skai-cell-balanced-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="ai"]]Pending[[/td]]
+          [[td id="skai-cell-balanced-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="hybrid"]]Pending[[/td]]
+          [[td id="skai-cell-balanced-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="balanced" data-strategy="skip"]]Pending[[/td]]
+        [[/tr]]
+        [[tr]]
+          [[td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;"]]Explorative[[/td]]
+          [[td id="skai-cell-explorative-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="ai"]]Pending[[/td]]
+          [[td id="skai-cell-explorative-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="hybrid"]]Pending[[/td]]
+          [[td id="skai-cell-explorative-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="explorative" data-strategy="skip"]]Pending[[/td]]
+        [[/tr]]
+        [[tr]]
+          [[td style="padding:6px 8px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb;"]]Conservative[[/td]]
+          [[td id="skai-cell-conservative-ai"     style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="ai"]]Pending[[/td]]
+          [[td id="skai-cell-conservative-hybrid" style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="hybrid"]]Pending[[/td]]
+          [[td id="skai-cell-conservative-skip"   style="padding:6px 8px;border:1px solid #e5e7eb;text-align:center;" data-profile="conservative" data-strategy="skip"]]Pending[[/td]]
+        [[/tr]]
+      [[/tbody]]
+    [[/table]]
+  [[/div]]
 
   <!-- Batch result detail area -->
-  <div id="skai-batch-detail" style="display:none;margin-top:14px;padding:12px;border:1px solid #d1fae5;border-radius:8px;background:#f0fdf4;">
-    <div style="font-weight:600;margin-bottom:6px;" id="skai-batch-detail-title">Result</div>
-    <div id="skai-batch-detail-body" style="font-size:0.85rem;white-space:pre-wrap;word-break:break-word;max-height:220px;overflow-y:auto;"></div>
-    <button type="button" id="skai-batch-detail-close" class="btn-outline"
-      style="margin-top:8px;font-size:0.82rem;padding:4px 10px;">Close</button>
-  </div>
+  [[div id="skai-batch-detail" style="display:none;margin-top:14px;padding:12px;border:1px solid #d1fae5;border-radius:8px;background:#f0fdf4;"]]
+    [[div style="font-weight:600;margin-bottom:6px;" id="skai-batch-detail-title"]]Result[[/div]]
+    [[div id="skai-batch-detail-body" style="font-size:0.85rem;white-space:pre-wrap;word-break:break-word;max-height:220px;overflow-y:auto;"]][[/div]]
+    [[button type="button" id="skai-batch-detail-close" class="btn-outline"
+      style="margin-top:8px;font-size:0.82rem;padding:4px 10px;"]]Close[[/button]]
+  [[/div]]
 
   <!-- Save all / Save selected (post-completion) -->
-  <div id="skai-batch-save-row" style="display:none;margin-top:12px;gap:8px;flex-wrap:wrap;">
-    <div style="width:100%;font-size:0.85rem;color:#065f46;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px 12px;margin-bottom:8px;">
-      <strong>All runs are done.</strong> Click <strong>Save All 9</strong> to save every result to your dashboard in one go,
-      or click <strong>Save Selected</strong> to pick only the ones you want.
+  [[div id="skai-batch-save-row" style="display:none;margin-top:12px;gap:8px;flex-wrap:wrap;"]]
+    [[div style="width:100%;font-size:0.85rem;color:#065f46;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px 12px;margin-bottom:8px;"]]
+      [[strong]]All runs are done.[[/strong]] Click [[strong]]Save All 9[[/strong]] to save every result to your dashboard in one go,
+      or click [[strong]]Save Selected[[/strong]] to pick only the ones you want.
       You stay on this page the whole time - nothing disappears.
-    </div>
-    <button type="button" id="skai-batch-save-all" class="btn"
-      style="font-size:0.85rem;padding:6px 14px;">
+    [[/div]]
+    [[button type="button" id="skai-batch-save-all" class="btn"
+      style="font-size:0.85rem;padding:6px 14px;"]]
       Save All 9
-    </button>
-    <button type="button" id="skai-batch-save-selected" class="btn-outline"
-      style="font-size:0.85rem;padding:6px 14px;">
+    [[/button]]
+    [[button type="button" id="skai-batch-save-selected" class="btn-outline"
+      style="font-size:0.85rem;padding:6px 14px;"]]
       Save Selected
-    </button>
-  </div>
-</div>
+    [[/button]]
+  [[/div]]
+[[/div]]
 
 <!-- SKAI: How this works - help panel (always visible) -->
-<details id="skai-how-it-works"
-  style="margin:14px 0 0 0;border:1px solid #e5e7eb;border-radius:12px;padding:0;background:#fff;">
-  <summary style="padding:12px 16px;font-weight:700;font-size:0.95rem;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;">
+[[details id="skai-how-it-works"
+  style="margin:14px 0 0 0;border:1px solid #e5e7eb;border-radius:12px;padding:0;background:#fff;"]]
+  [[summary style="padding:12px 16px;font-weight:700;font-size:0.95rem;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;"]]
     How this works
-    <span style="font-size:0.8rem;font-weight:400;color:#6b7280;">Click to expand</span>
-  </summary>
-  <div style="padding:4px 16px 16px 16px;font-size:0.88rem;line-height:1.65;color:#374151;">
-    <p><strong>Run 9-Combo Default Batch</strong> asks SKAI to do nine separate analysis runs all at once.
+    [[span style="font-size:0.8rem;font-weight:400;color:#6b7280;"]]Click to expand[[/span]]
+  [[/summary]]
+  [[div style="padding:4px 16px 16px 16px;font-size:0.88rem;line-height:1.65;color:#374151;"]]
+    [[p]][[strong]]Run 9-Combo Default Batch[[/strong]] asks SKAI to do nine separate analysis runs all at once.
     Think of it like asking nine different experts to look at the same lottery and each one uses a slightly different style.
     Some are bold and exploratory. Some are careful and conservative. Some lean on patterns; others lean on the AI engine.
-    Together they give you a full picture.</p>
-    <p><strong>Why does it take long?</strong> Each run is a complete analysis. SKAI has to look through all the historical draw data,
-    run its AI model, and score every number. Nine of those in a row takes some patience. You can stop at any time and keep the results you already have.</p>
-    <p><strong>What does the grid mean?</strong> The 3 rows are the three risk styles (Balanced, Explorative, Conservative).
+    Together they give you a full picture.[[/p]]
+    [[p]][[strong]]Why does it take long?[[/strong]] Each run is a complete analysis. SKAI has to look through all the historical draw data,
+    run its AI model, and score every number. Nine of those in a row takes some patience. You can stop at any time and keep the results you already have.[[/p]]
+    [[p]][[strong]]What does the grid mean?[[/strong]] The 3 rows are the three risk styles (Balanced, Explorative, Conservative).
     The 3 columns are the three strategy modes (AI-Forward, Balanced Mix, Skip Pattern Boost).
     Each cell shows whether that combination is Pending, Running, or Done.
-    When a run finishes, a View link appears so you can look at the picks it produced.</p>
-    <p><strong>What does Save All 9 do?</strong> It saves each completed run to your dashboard one at a time, automatically.
-    You will see a small green confirmation for each one. Nothing disappears. You stay on this page the whole time.</p>
-    <p><strong>Should I click Save while the batch is still running?</strong> No. Do not click Save during the batch.
-    Just let it run. When the last combination finishes, a green <strong>Save All 9</strong> button appears automatically
-    right below the grid. That is your signal that everything is ready to save.</p>
-    <p><strong>What if I stop the batch early?</strong> No problem. Whatever runs already finished are kept.
-    The Save All 9 button appears as soon as you stop, so you can save whichever results are already done.</p>
-    <p><strong>What happens after you click Save?</strong> Nothing scary. You stay right here. A small green message appears near the save button
-    so you know it worked. Your picks and all your settings remain visible exactly as they were.</p>
-  </div>
-</details>
+    When a run finishes, a View link appears so you can look at the picks it produced.[[/p]]
+    [[p]][[strong]]What does Save All 9 do?[[/strong]] It saves each completed run to your dashboard one at a time, automatically.
+    You will see a small green confirmation for each one. Nothing disappears. You stay on this page the whole time.[[/p]]
+    [[p]][[strong]]Should I click Save while the batch is still running?[[/strong]] No. Do not click Save during the batch.
+    Just let it run. When the last combination finishes, a green [[strong]]Save All 9[[/strong]] button appears automatically
+    right below the grid. That is your signal that everything is ready to save.[[/p]]
+    [[p]][[strong]]What if I stop the batch early?[[/strong]] No problem. Whatever runs already finished are kept.
+    The Save All 9 button appears as soon as you stop, so you can save whichever results are already done.[[/p]]
+    [[p]][[strong]]What happens after you click Save?[[/strong]] Nothing scary. You stay right here. A small green message appears near the save button
+    so you know it worked. Your picks and all your settings remain visible exactly as they were.[[/p]]
+  [[/div]]
+[[/details]]
 
     <?php else: ?>
       [[div style="text-align: center; margin-top: 20px;"]]
