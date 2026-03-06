@@ -1429,7 +1429,7 @@ document.addEventListener('DOMContentLoaded', function () {
       style="margin-top:10px; padding:10px; border:1px solid rgba(0,0,0,0.12); border-radius:8px; font-weight:700; color:var(--skai-navy);"
       aria-live="polite"
     ]]
-      Mode: balanced • AI λ: 0.65 • Skip: 0.35 • β: 2.00 • T: 1.00
+      Mode: balanced • AI weight: 0.65 • Skip weight: 0.35 • Sharpness: 2.00 • Temp: 1.00
     [[/div]]
 
     [[p id="skaiModeDescription" class="skai-mode-desc skai-mode-description"]]
@@ -1530,7 +1530,7 @@ document.addEventListener('DOMContentLoaded', function () {
             [[/div]]
              [[div class="parameter-item"]]
                [[label for="recencyDecay"]]
-                 Recency Decay (λ):[[br]]
+                 Recency Decay:[[br]]
                  [[div style="display:flex; gap:10px; align-items:center;"]]
                    [[input
                      type="number"
@@ -1546,7 +1546,7 @@ document.addEventListener('DOMContentLoaded', function () {
                      style="min-width:92px; text-align:right; font-weight:700; color:var(--skai-navy);"
                      aria-live="polite"
                    ]]
-                     λ = 1.00
+                     1.00
                    [[/span]]
                  [[/div]]
                [[/label]]
@@ -1589,7 +1589,7 @@ document.addEventListener('DOMContentLoaded', function () {
         [[label]]Hidden Layers: [[/label]] [[span id="hiddenLayersValue"]]N/A[[/span]]
       [[/div]]
        [[div class="parameterDisplayItem"]]
-       [[label]]Recency Decay (λ): [[/label]] [[span id="recencyDecayValue"]]N/A[[/span]]
+       [[label]]Recency Decay: [[/label]] [[span id="recencyDecayValue"]]N/A[[/span]]
        [[/div]]
        [[div class="parameterDisplayItem"]]
          [[label]]Latest Draw Date: [[/label]] [[span id="latestDrawDateValue"]]N/A[[/span]]
@@ -2223,9 +2223,9 @@ function renderBacktestResults(results) {
         var skip = 1 - lam;
         skaiBlendReadoutEl.textContent =
           'Mode: ' + String(modeKey || 'balanced') +
-          ' • AI λ: ' + skaiFmt2(lam) +
+          ' • AI weight: ' + skaiFmt2(lam) +
           ' • Skip: ' + skaiFmt2(skip) +
-          ' • β: ' + skaiFmt2(beta) +
+          ' • Sharpness: ' + skaiFmt2(beta) +
           ' • T: ' + skaiFmt2(tempT);
       }
 
@@ -2240,7 +2240,7 @@ function renderBacktestResults(results) {
         if (!recencyDecayInput || !recencyDecayLambdaReadout) {
           return;
         }
-        recencyDecayLambdaReadout.textContent = 'λ = ' + formatLambda(recencyDecayInput.value);
+        recencyDecayLambdaReadout.textContent = formatLambda(recencyDecayInput.value);
       }
 
       // Initialize and keep in sync while editing
